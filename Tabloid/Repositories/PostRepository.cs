@@ -29,7 +29,9 @@ namespace Tabloid.Repositories
                         FROM Post p
                         JOIN Category c ON p.CategoryId = c.Id
                         JOIN UserProfile up ON p.UserProfileId = up.Id
-                        WHERE p.IsApproved = 1;
+                        WHERE p.IsApproved = 1
+                        AND p.PublishDateTime < SYSDATETIME()
+                        ORDER BY p.PublishDateTime DESC;
                     ";
 
                     var reader = cmd.ExecuteReader();
