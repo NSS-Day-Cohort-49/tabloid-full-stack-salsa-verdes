@@ -3,10 +3,9 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
-import PostList from "./PostList"
+import PostList from "./PostList";
 
 export default function ApplicationViews({ isLoggedIn }) {
-
   return (
     <main>
       <Switch>
@@ -28,4 +27,4 @@ export default function ApplicationViews({ isLoggedIn }) {
       </Switch>
     </main>
   );
-};
+}
