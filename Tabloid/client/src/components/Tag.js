@@ -5,9 +5,9 @@ const Tag = ({tag}) => {
     return (
         <Card className="">
             <CardBody>
-                <strong>{tag.Name}</strong>
+                <strong>{tag.name}</strong>
             </CardBody>
         </Card>
     )
 }
-export default tag
+export default Tag
