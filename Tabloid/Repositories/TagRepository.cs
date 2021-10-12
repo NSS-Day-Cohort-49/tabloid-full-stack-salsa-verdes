@@ -8,15 +8,34 @@ namespace Tabloid.Repositories
     public class TagRepository : BaseRepository, ITagRepository
     {
         public TagRepository(IConfiguration configuration) : base(configuration) { }
-        public List<Tag>Get()
+        public List<Tag> Get()
         {
             using (var conn = Connection)
             {
+                conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT * FROM Tag";
+                    cmd.CommandText = @"SELECT * FROM Tag
+                                       ORDER BY Name";
+
+                    var tags = new List<Tag>();
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var tag = new Tag
+                            {
+                                Id = DbUtils.GetInt(reader, "Id"),
+                                Name = DbUtils.GetString(reader, "Name")
+                            };
+                            tags.Add(tag);
+                        }
+
+                    }
+                    return tags;
                 }
-                using (var reader)
             }
         }
     }
+}
