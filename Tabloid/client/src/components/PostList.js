@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from "react";
+import { getPosts } from "../modules/postManager"
 import Post from "./Post";
 
 const PostList = () => {
 
 const [posts, setPosts] = useState([])
 
-const getPosts = () => {
+const getAllPosts = () => {
     getPosts().then(posts => setPosts(posts));
 };
 
 useEffect(() => {
-    getPosts()
+    getAllPosts()
 },[]);
 
 return (
     <div className="container">
         <div className="row justify-content-center">
+            <p>
             {posts.map((post) => (
                 <Post post = {post} key = {post.Id} />
             ))}
+            </p>
         </div>
     </div>
 );

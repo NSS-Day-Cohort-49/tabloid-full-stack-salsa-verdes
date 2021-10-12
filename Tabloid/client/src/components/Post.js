@@ -3,12 +3,13 @@ import {Card ,CardBody} from "reactstrap"
 
 const Post = ({post}) => {
     return (
-        <Card className="text-left px-2">
+        <Card className="">
             <CardBody>
-            <strong>{post.title}</strong>
-            {post.userprofile.displayname}
-            {post.category.name}
+                <strong>{post.title}</strong>
+                {post.userProfile.displayName}
+                {post.category.name}
             </CardBody>
         </Card>
     )
 }
+export default Post
