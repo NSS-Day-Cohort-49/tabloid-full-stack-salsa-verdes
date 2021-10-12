@@ -95,6 +95,5 @@ namespace Tabloid.Repositories
             _context.SaveChanges();
         }
         */
-
     }
 }
