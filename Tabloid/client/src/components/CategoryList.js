@@ -16,9 +16,11 @@ const CategoryList = () => {
   return (
     <div className="container">
       <div className="row justify-content-center">
+          <p>
         {categories.map((category) => (
           <Category category={category} key={category.id} />
         ))}
+        </p>
       </div>
     </div>
   );
