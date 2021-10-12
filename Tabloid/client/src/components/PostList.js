@@ -16,6 +16,7 @@ useEffect(() => {
 
 return (
     <div className="container">
+        <h1>Posts</h1>
         <div className="row justify-content-center">
             <p>
             {posts.map((post) => (
