@@ -1,7 +1,8 @@
 import React, {useEffect, useState, UseState} from "react";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import { useParams } from "react-router-dom";
-import { getPosts } from "../modules/postManager";
+import {  getPostsId } from "../modules/postManager";
+import Post from "./Post";
 
 
 export const PostDetails = () => {
@@ -10,7 +11,7 @@ export const PostDetails = () => {
 
 
     useEffect(() => {
-        getPosts(id)
+        getPostsId(id)
         .then(setPost);
     })
 
@@ -23,7 +24,7 @@ export const PostDetails = () => {
                         {post.imageLocation}
                         {post.content}
                         {post.publishDateTime}
-                        {post.userProfile.userName}
+                        {post.userProfile?.userName}
                     </ListGroup>
                 </div>
             </div>
