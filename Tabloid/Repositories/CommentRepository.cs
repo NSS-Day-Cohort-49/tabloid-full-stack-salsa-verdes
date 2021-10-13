@@ -45,6 +45,11 @@ namespace Tabloid.Repositories
                 }
             }
         }
+        //Adding method to get comments by post
+        public List<Comment> GetCommentsByPostId()
+        {
+
+        }
 
         private Comment NewCommentFromReader(SqlDataReader reader)
         {
