@@ -14,5 +14,7 @@ namespace Tabloid.Repositories
         Post GetById(int id);
         void Update(Post post);
         public List<Post> GetUserPostsById(int userProfileId);
+        public List<Post> GetAllPostsForUser(int userProfileId);
+
     }
 }

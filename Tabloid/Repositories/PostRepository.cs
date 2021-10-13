@@ -158,7 +158,6 @@ namespace Tabloid.Repositories
             throw new NotImplementedException();
         }
 
-        //Idk what I am doing here. Why am I trying to code on something I have not been trained on?
         public List<Post> GetUserPostsById(int userProfileId)
         {
             using (var conn = Connection)
@@ -235,5 +234,43 @@ namespace Tabloid.Repositories
                 }
             };
         }
+
+        public List<Post> GetAllPostsForUser(int userProfileId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    SELECT p.Id, p.Title, p.Content, p.ImageLocation, p.CreateDateTime, p.PublishDateTime, p.IsApproved, p.CategoryId, p.UserProfileId,
+                    c.[Name],
+                    up.DisplayName, up.FirstName, up.LastName, up.Email, up.CreateDateTime, up.ImageLocation
+
+                    FROM Post p
+                    LEFT JOIN Category c ON p.CategoryId = c.Id
+                    LEFT JOIN UserProfile up ON p.UserProfileId = up.Id
+                    WHERE p.UserProfileId = userProfileId 
+                    ORDER BY p.PublishDateTime DESC; 
+                    ";
+
+                    cmd.Parameters.AddWithValue("@userProfileId", userProfileId);
+                    var reader = cmd.ExecuteReader();
+
+                    var posts = new List<Post>(userProfileId);
+
+
+                    while (reader.Read())
+                    {
+                        posts.Add(NewPostFromReader(reader));
+                    }
+
+                    reader.Close();
+
+                    return posts;
+                }
+            }
+        }
+
     }
 }

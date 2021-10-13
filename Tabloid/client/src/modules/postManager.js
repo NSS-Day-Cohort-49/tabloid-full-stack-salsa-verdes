@@ -1,12 +1,13 @@
-const _apiUrl = "/api/post" 
+const _apiUrl = "/api/post";
 
 export const getPosts = () => {
-    return fetch(_apiUrl)
-    .then((res) => res.json())
+  return fetch(_apiUrl).then((res) => res.json());
 };
 
 export const getPostsId = (id) => {
-    return fetch(`${_apiUrl}/${id}`)
-    .then((res) => res.json())
+  return fetch(`${_apiUrl}/${id}`).then((res) => res.json());
 };
 
+export const getMyPosts = () => {
+  return fetch(`${_apiUrl}/myPosts`).then((res) => res.json());
+};

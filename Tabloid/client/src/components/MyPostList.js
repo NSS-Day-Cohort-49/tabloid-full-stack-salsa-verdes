@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { getPosts } from "../modules/postManager";
+import { getMyPosts } from "../modules/postManager";
 import Post from "./Post";
 
-const PostList = () => {
-  const [posts, setPosts] = useState([]);
+const MyPostList = () => {
+  const [myPosts, setMyPosts] = useState([]);
 
-  const getAllPosts = () => {
-    getPosts().then((posts) => setPosts(posts));
+  const getAllMyPosts = () => {
+    getMyPosts().then((myPosts) => setMyPosts(myPosts));
   };
 
   useEffect(() => {
-    getAllPosts();
+    getAllMyPosts();
   }, []);
 
   return (
     <div className="container">
-      <h1>Posts</h1>
+      <h1>My Posts</h1>
       <div className="row justify-content-center">
         <p>
-          {posts.map((post) => (
+          {myPosts.map((post) => (
             <Post post={post} key={post.Id} />
           ))}
         </p>
@@ -26,4 +26,4 @@ const PostList = () => {
     </div>
   );
 };
-export default PostList;
+export default MyPostList;

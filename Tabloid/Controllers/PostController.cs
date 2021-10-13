@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Tabloid.Repositories;
+
 
 namespace Tabloid.Controllers
 {
@@ -38,5 +40,20 @@ namespace Tabloid.Controllers
             }
             return Ok(post);
         }
+
+        [HttpGet("myPosts")]   
+        public IActionResult GetLoggedInUserPosts()
+        {
+            var loggedInUser = GetCurrentUserProfileId();
+            var fireBaseUser = _userProfileRepository.GetByFirebaseUserId(loggedInUser);
+            var posts = _postRepository.GetAllPostsForUser(fireBaseUser.Id);
+            return Ok(posts);
+        }
+
+        private string GetCurrentUserProfileId()
+        {
+            return User.FindFirstValue(ClaimTypes.NameIdentifier);
+        }
+
     }
 }
