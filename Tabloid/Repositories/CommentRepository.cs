@@ -46,9 +46,28 @@ namespace Tabloid.Repositories
             }
         }
         //Adding method to get comments by post
-        public List<Comment> GetCommentsByPostId()
+        public List<Comment> GetCommentsByPostId(int id)
         {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                        SELECT c.Id, c.Subject, c.Content, 
+                                            c.PostId, c.UserProfileId,
+                                            p.Title, p.Content, p.ImageLocation, p.CreateDateTime,
+                                            p.PublishDateTime, p.CategoryId, p.UserProfileId,
+                                            up.Id, up.DisplayName, up.FirstName, up.LastName, 
+                                            up.Email, up.CreateDateTime, up.ImageLocation
 
+                                        FROM Comment c
+                                        JOIN Post p ON p.Id = c.PostId
+                                        JOIN UserProfile up ON up.Id = c.UserProfileId
+                                        JOIN Category cat ON p.CategoryId = cat.Id
+                                        WHERE c.PostId = Id";
+                }
+            }
         }
 
         private Comment NewCommentFromReader(SqlDataReader reader)
