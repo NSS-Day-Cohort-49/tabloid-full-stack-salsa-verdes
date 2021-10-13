@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tabloid.Models;
-using System.Linq;
 using Tabloid.Utils;
 using Microsoft.Extensions.Configuration;
 
