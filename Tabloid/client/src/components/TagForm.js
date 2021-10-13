@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { addTag } from "../modules/videoManager";
+import { addTag } from "../modules/tagManager";
 import { useHistory } from "react-router-dom";
+import {Container} from "reactstrap"
 
 const VideoForm = () => {
 
@@ -16,7 +17,7 @@ const VideoForm = () => {
 
     }
 
-    const handleSubmitVideo = () => {
+    const handleCreateTag = () => {
         
         addTag(tag)
 
@@ -27,26 +28,20 @@ const VideoForm = () => {
     const history = useHistory();
 
 return(
-    <div className="videoForm">
-        <h3>Add a Video</h3>
-        <div className="container">
-        <div className ="form-group">
-                <label for="title">Title</label>
-                <input type="title" class="form-control" id="title" placeholder ="Title" value={video.title} onChange={handleInput} required/>
-            </div>
+    <Container>
+        <div className="tagForm">
+            <h3>Add a Tag</h3>
+            <div className="container-5">
             <div className ="form-group">
-                <label for="description">Description</label>
-                <input type="description" class="form-control" id="description" placeholder ="Description" value={video.description} onChange={handleInput}/>
+                    <label for="name">Name</label>
+                    <input type="name" class="form-control" id="name" placeholder ="name" value={tag.name} onChange={handleInput} required/>
+                </div>
+                <button type="submit" class="btn btn-primary" onClick={event => {
+                    handleCreateTag()
+                }}>Submit</button>
             </div>
-            <div className ="form-group">
-                <label for="youtubeUrl">Youtube URL</label>
-                <input type="youtubeUrl" class="form-control" id="url" placeholder="Youtube Url" required value={video.url} onChange={handleInput}/>
-            </div>
-            <button type="submit" class="btn btn-primary" onClick={event => {
-                handleSubmitVideo()
-            }}>Submit</button>
         </div>
-    </div>
+    </Container>
 )}
 
 export default VideoForm;
