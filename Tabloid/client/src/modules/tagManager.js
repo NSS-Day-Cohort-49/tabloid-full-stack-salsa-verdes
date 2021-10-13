@@ -28,7 +28,7 @@ export const updateTag = (tag) => {
         headers: {
             "Content-Type": "application/json",
         },
-        vody: JSON.stringify(tag),
+        body: JSON.stringify(tag),
     }).then(getTags());
 }
 

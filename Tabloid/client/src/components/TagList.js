@@ -4,7 +4,7 @@ import { getTags } from "../modules/tagManager"
 import Tag from "./Tag";
 import { Row, Col } from "reactstrap"
 
-const TagList = () => {
+export const TagList = () => {
 
 const [tags, setTags] = useState([])
 
@@ -42,4 +42,3 @@ return (
     </div>
 );
 }
-export default TagList;

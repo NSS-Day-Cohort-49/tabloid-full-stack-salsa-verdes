@@ -4,7 +4,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
 import PostList from "./PostList"
-import TagList from "./TagList"
+import {TagList} from "./TagList"
 import TagForm from "./TagForm"
 import { PostDetails } from "./PostDetails";
 

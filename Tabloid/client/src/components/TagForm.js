@@ -49,11 +49,11 @@ return(
                 {tagId.id? 
                     <button type="submit" class="btn btn-primary" onClick={event => {
                         handleClickUpdateTag()
-                    }}>Create</button>
+                    }}>Update</button>
                     :
                     <button type="submit" class="btn btn-primary" onClick={event => {
                         handleCreateTag()
-                    }}>Update</button>
+                    }}>Create</button>
                 }
             </div>
         </div>
