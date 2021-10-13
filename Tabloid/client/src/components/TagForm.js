@@ -35,6 +35,10 @@ const TagForm = () => {
         .then(history.push("/tag"))
     }
 
+    const handleClickCancel = () => {
+        history.push("/tag")
+    }
+
     const history = useHistory();
 
 return(
@@ -47,9 +51,16 @@ return(
                     <input type="name" class="form-control" id="name" placeholder ="name" value={tag.name} onChange={handleInput} required/>
                 </div>
                 {tagId.id? 
-                    <button type="submit" class="btn btn-primary" onClick={event => {
+                <div>
+                    <button type="submit" class="btn btn-primary mr-3" onClick={event => {
                         handleClickUpdateTag()
                     }}>Update</button>
+
+                    <button type="cancel" class="btn btn-primary mx-3" onClick={event => {
+                        handleClickCancel()
+                    }}>Cancel</button>
+
+                </div>
                     :
                     <button type="submit" class="btn btn-primary" onClick={event => {
                         handleCreateTag()
