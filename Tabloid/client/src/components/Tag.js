@@ -8,8 +8,13 @@ const Tag = ({tag, setTags, getTags}) => {
 const history = useHistory();
 
 const handleClickDeleteTag = () => {
-    deleteTag(tag)
-    .then(getTags().then(tags => setTags(tags)));
+    const confirm = window.confirm("Are you sure you want to delete this tag?")
+    if(confirm== true)
+    {deleteTag(tag)
+    .then(getTags().then(tags => setTags(tags)))} else {
+    return;
+}
+        
 }
 
 const handleClickEditTag = () => {
