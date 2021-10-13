@@ -12,6 +12,8 @@ const handleClickDeleteTag = () => {
     .then(getTags().then(tags => setTags(tags)));
 }
 
+const
+
     return (
         <Card className="">
             <CardBody>
@@ -21,6 +23,9 @@ const handleClickDeleteTag = () => {
                     </Col>
                     <Col>
                         <Button onClick={handleClickDeleteTag}color="danger">Delete</Button>
+                    </Col>
+                    <Col>
+                        <Button onClick={history.push(`/tag/${tag.id}`)}color="primary">Edit</Button>
                     </Col>
                 </Row>
             </CardBody>

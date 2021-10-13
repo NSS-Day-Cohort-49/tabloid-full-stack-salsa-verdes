@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { addTag } from "../modules/tagManager";
-import { useHistory } from "react-router-dom";
+import { addTag, updateTag } from "../modules/tagManager";
+import { useHistory, useParams } from "react-router-dom";
 import {Container} from "reactstrap"
 
-const VideoForm = () => {
+const TagForm = () => {
 
     const [ tag, setTag ] = useState({
         name : "",
     })
+
+    const tagId = useParams();
 
     const handleInput = (event) => {
 
@@ -25,6 +27,13 @@ const VideoForm = () => {
 
     }
 
+    const handleClickUpdateTag = () => {
+
+        updateTag(tag)
+        .then(history.push("/tag"))
+
+    }
+
     const history = useHistory();
 
 return(
@@ -36,12 +45,18 @@ return(
                     <label for="name">Name</label>
                     <input type="name" class="form-control" id="name" placeholder ="name" value={tag.name} onChange={handleInput} required/>
                 </div>
-                <button type="submit" class="btn btn-primary" onClick={event => {
-                    handleCreateTag()
-                }}>Submit</button>
+                {tagId? 
+                    <button type="submit" class="btn btn-primary" onClick={event => {
+                        handleClickUpdateTag()
+                    }}>Submit</button>
+                    :
+                    <button type="submit" class="btn btn-primary" onClick={event => {
+                        handleCreateTag()
+                    }}>Submit</button>
+                }
             </div>
         </div>
     </Container>
 )}
 
-export default VideoForm;
+export default TagForm;

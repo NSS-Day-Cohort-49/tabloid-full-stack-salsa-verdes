@@ -21,3 +21,13 @@ export const deleteTag = (tag) => {
     })
     .then(getTags());
 }
+
+export const updateTag = (tag) => {
+    return fetch(_apiUrl, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        vody: JSON.stringify(tag),
+    }).then(getTags());
+}
