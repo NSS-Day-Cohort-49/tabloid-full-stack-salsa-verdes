@@ -54,7 +54,7 @@ namespace Tabloid.Controllers
             {
                 _tagRepository.Update(tag);
 
-                return CreatedAtAction("Get", new { id = tag.Id }, tag);
+                return Ok(tag);
             }
             catch
             {
