@@ -47,6 +47,20 @@ namespace Tabloid.Controllers
                 return BadRequest();
             }
         }
+        [HttpPut]
+        public IActionResult Update(Tag tag)
+        {
+            try
+            {
+                _tagRepository.Update(tag);
+
+                return CreatedAtAction("Get", new { id = tag.Id }, tag);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

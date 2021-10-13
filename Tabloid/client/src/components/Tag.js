@@ -12,7 +12,7 @@ const handleClickDeleteTag = () => {
     .then(getTags().then(tags => setTags(tags)));
 }
 
-const
+const Tag = ({tag}) => {
 
     return (
         <Card className="">
@@ -31,5 +31,6 @@ const
             </CardBody>
         </Card>
     )
+}
 }
 export default Tag
