@@ -6,7 +6,12 @@ namespace Tabloid.Repositories
 {
     public class UserProfileRepository : BaseRepository, IUserProfileRepository
     {
-        public UserProfileRepository(IConfiguration configuration) : base(configuration) { }
+        private readonly IPostRepository _postRepository;
+
+        public UserProfileRepository(IConfiguration configuration, IPostRepository postRepository) : base(configuration) 
+        {
+            _postRepository = postRepository;
+        }
 
         public UserProfile GetByFirebaseUserId(string firebaseUserId)
         {

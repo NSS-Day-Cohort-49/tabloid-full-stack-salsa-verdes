@@ -6,13 +6,21 @@ using Tabloid.Models;
 using System.Linq;
 using Tabloid.Utils;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Data.SqlClient;
+
 
 
 namespace Tabloid.Repositories
 {
     public class PostRepository : BaseRepository, IPostRepository
     {
-        public PostRepository(IConfiguration configuration) : base(configuration) { }
+        private readonly IUserProfileRepository _userprofileRepository;
+
+
+        public PostRepository(IConfiguration configuration, IUserProfileRepository userProfileRepository) : base(configuration) 
+        {
+            _userprofileRepository = userProfileRepository;
+        }
 
         public List<Post> GetAll()
         {
@@ -67,9 +75,9 @@ namespace Tabloid.Repositories
                         });
 
                     }
-                        reader.Close();
+                    reader.Close();
 
-                        return posts;
+                    return posts;
                 }
             }
         }
@@ -94,6 +102,7 @@ namespace Tabloid.Repositories
             throw new NotImplementedException();
         }
 
+        //Idk what I am doing here. Why am I trying to code on something I have not been trained on?
         public List<Post> GetUserPostsById(int userProfileId)
         {
             using (var conn = Connection)
@@ -117,36 +126,34 @@ namespace Tabloid.Repositories
                     ORDER BY p.PublishDateTime DESC; 
                     ";
 
-                    cmd.Parameters.AddWithValue("@id", id);
                     cmd.Parameters.AddWithValue("@userProfileId", userProfileId);
                     var reader = cmd.ExecuteReader();
 
-                    Post post = null;
+                    var posts = new List<Post>(userProfileId);
 
-                    if (reader.Read())
+
+                    while (reader.Read())
                     {
-                        post = NewPostFromReader(reader);
+                        posts.Add(NewPostFromReader(reader));
                     }
 
                     reader.Close();
 
-                    return post;
+                    return posts;
                 }
             }
         }
 
-    }
-
-    private Post NewPostFromReader(SqlDataReader reader)
+        private Post NewPostFromReader(SqlDataReader reader)
         {
             return new Post()
             {
                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
                 Title = reader.GetString(reader.GetOrdinal("Title")),
                 Content = reader.GetString(reader.GetOrdinal("Content")),
-                ImageLocation = DbUtils.GetNullableString(reader, "HeaderImage"),
+                ImageLocation = DbUtils.GetString(reader, "HeaderImage"),
                 CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
-                PublishDateTime = DbUtils.GetNullableDateTime(reader, "PublishDateTime"),
+                PublishDateTime = DbUtils.GetDateTime(reader, "PublishDateTime"),
                 CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
                 Category = new Category()
                 {
@@ -162,7 +169,7 @@ namespace Tabloid.Repositories
                     DisplayName = reader.GetString(reader.GetOrdinal("DisplayName")),
                     Email = reader.GetString(reader.GetOrdinal("Email")),
                     CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
-                    ImageLocation = DbUtils.GetNullableString(reader, "AvatarImage"),
+                    ImageLocation = DbUtils.GetString(reader, "AvatarImage"),
                     UserTypeId = reader.GetInt32(reader.GetOrdinal("UserTypeId")),
                     UserType = new UserType()
                     {
