@@ -14,7 +14,7 @@ export const PostDetails = () => {
     useEffect(() => {
         getPostsId(id)
         .then(setPost);
-    })
+    }, [])
 
     return (
         <div className="container">
