@@ -13,7 +13,6 @@ import { CategoryContext } from "../modules/categoryManager";
     <Card >
       <CardBody>
       <strong className="text-left px-2">{category.name}</strong>
-      <button className="addCategoryButton"onClick={() => {history.push("/categories/add")}}>Add a Category</button>
       <button className="editCategoryButton" onClick={() => { history.push(`/categories/edit/${category.id}`)}}>Edit a Category</button>
       {/* <button className="deleteCategoryButton" onClick={ event => {deleteCategory(category.id) }}>Delete a Category</button> */}
       </CardBody>

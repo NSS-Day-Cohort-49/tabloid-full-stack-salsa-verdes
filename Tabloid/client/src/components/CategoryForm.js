@@ -9,8 +9,8 @@ export default function CategoryForm() {
 
   const submitForm = (e) => {
     e.preventDefault();
-    addCategory({ text: categoryText })
-      .then(() => history.push("/catagories"))
+    addCategory({ name: categoryText })
+      .then(() => history.push("/categories"))
       .catch((err) => alert(`An error ocurred: ${err.message}`));
   };
 
