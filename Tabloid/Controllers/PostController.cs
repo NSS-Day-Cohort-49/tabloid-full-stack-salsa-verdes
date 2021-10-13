@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,9 @@ namespace Tabloid.Controllers
         [HttpGet("{id}")]
         public IActionResult get(int id)
         {
+            
             var post = _postRepository.GetById(id);
+           
             if (post == null)
             {
                 return NotFound();
