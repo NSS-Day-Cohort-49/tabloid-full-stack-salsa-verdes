@@ -31,3 +31,8 @@ export const updateTag = (tag) => {
         vody: JSON.stringify(tag),
     }).then(getTags());
 }
+
+export const getTagById = (id) => {
+    return fetch(`${_apiUrl}/${id}`)
+    .then((res) => res.json())
+};

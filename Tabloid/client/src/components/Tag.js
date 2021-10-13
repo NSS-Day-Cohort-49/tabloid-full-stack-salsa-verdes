@@ -12,8 +12,6 @@ const handleClickDeleteTag = () => {
     .then(getTags().then(tags => setTags(tags)));
 }
 
-const Tag = ({tag}) => {
-
     return (
         <Card className="">
             <CardBody>
@@ -25,12 +23,12 @@ const Tag = ({tag}) => {
                         <Button onClick={handleClickDeleteTag}color="danger">Delete</Button>
                     </Col>
                     <Col>
-                        <Button onClick={history.push(`/tag/${tag.id}`)}color="primary">Edit</Button>
+                        <Button onClick={history.push(`/tag/create/${tag.id}`)}color="primary">Edit</Button>
                     </Col>
                 </Row>
             </CardBody>
         </Card>
     )
 }
-}
+
 export default Tag

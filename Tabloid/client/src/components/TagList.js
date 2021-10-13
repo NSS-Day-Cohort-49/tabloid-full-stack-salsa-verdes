@@ -11,8 +11,7 @@ const [tags, setTags] = useState([])
 const history = useHistory();
 
 const getAllTags = () => {
-    getTags()
-    .then(tags => setTags(tags));
+    getTags().then(tags => setTags(tags));
 };
 
 useEffect(() => {
@@ -24,7 +23,6 @@ const handleClickTagForm = () => {
 }
 
 return (
-
     <div className="container">
         <div className="justify-content-center">
         <Row xs="3">
@@ -42,7 +40,6 @@ return (
             </p>
         </div>
     </div>
-
 );
 }
 export default TagList;

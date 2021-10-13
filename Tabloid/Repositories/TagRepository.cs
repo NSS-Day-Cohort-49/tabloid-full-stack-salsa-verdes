@@ -37,6 +37,28 @@ namespace Tabloid.Repositories
                 }
             }
         }
+        public Tag GetById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using(var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT * FROM Tag
+                                        WHERE Id = @id";
+                    DbUtils.AddParameter(cmd, "@id", id);
+                Tag tag = null;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            tag = new Tag { Id = id, Name = DbUtils.GetString(reader, "Name") };
+                        }
+                    }
+                    return tag;
+                }
+            }
+        }
         public void Add(Tag tag)
         {
             using (var conn = Connection)
