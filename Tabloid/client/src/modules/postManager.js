@@ -11,10 +11,15 @@ export const getPostsId = (id) => {
 };
 
 export const getMyPosts = () => {
-  return getToken().then((token) => {
-    fetch(`${_apiUrl}/myPosts`, {
-      method: "Get",
-      headers: { authorization: `bearer ${token}` },
-    }).then((res) => res.json());
-  });
+  return getToken()
+    .then(
+      (token) =>
+        //* Returns a promise
+        fetch(`${_apiUrl}/myPosts`, {
+          method: "Get",
+          headers: { authorization: `bearer ${token}` },
+        })
+      //* Returns a promise
+    )
+    .then((res) => res.json());
 };
