@@ -41,7 +41,7 @@ namespace Tabloid.Controllers
             return CreatedAtAction("Get", new { id = category.Id }, category);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}")] 
         public IActionResult Put(int id, Category category)
         {
             if (id != category.Id)

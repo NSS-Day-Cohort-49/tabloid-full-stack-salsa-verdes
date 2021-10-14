@@ -1,23 +1,41 @@
-import React, { useContext }  from "react";
-import { Card, CardBody } from "reactstrap";
-import { useHistory } from 'react-router-dom';
-import { CategoryContext } from "../modules/categoryManager";
+import React from "react";
+import {Card ,CardBody, Row, Button, Col} from "reactstrap"
+import { deleteCategory, getAllCategories } from "../modules/categoryManager";
+import { useHistory } from "react-router-dom";
 
-    const Category = ({ category }) => {
+export const Category = ({category, setCategories}) => {
 
-    const history = useHistory()
+const history = useHistory();
 
-    // const { deleteCategory } = useContext(CategoryContext)
+const handleClickDeleteCategory = () => {
+    const confirm = window.confirm("Are you sure you want to delete this category?")
+    if(confirm== true)
+    {deleteCategory(category)
+    .then(getAllCategories().then(categories => setCategories(categories)))} else {
+    return;
+}
+}
 
-  return (
-    <Card >
-      <CardBody>
-      <strong className="text-left px-2">{category.name}</strong>
-      <button className="editCategoryButton" onClick={() => { history.push(`/categories/edit/${category.id}`)}}>Edit a Category</button>
-      {/* <button className="deleteCategoryButton" onClick={ event => {deleteCategory(category.id) }}>Delete a Category</button> */}
-      </CardBody>
-    </Card>
-  );
-};
+const handleClickEditTag = () => {
+    history.push(`/categories/edit/${category.id}`)
+}
 
-export default Category;
+    return (
+        <Card>
+            <CardBody>
+                <Row>
+                    <Col>
+                        <strong>{category.name}</strong>
+                    </Col>
+                    <Col>
+                        <Button onClick={handleClickEditTag}color="primary">Edit</Button>
+                    </Col>
+                    <Col>
+                        <Button onClick={handleClickDeleteCategory}color="danger">Delete</Button>
+                    </Col>
+                </Row>
+            </CardBody>
+        </Card>
+    )
+}
+
