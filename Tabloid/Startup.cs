@@ -25,6 +25,7 @@ namespace Tabloid
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IPostRepository, PostRepository> ();
+            services.AddTransient<ITagRepository, TagRepository>();
             services.AddTransient<ICommentRepository, CommentRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
