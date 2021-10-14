@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import Hello from "./Hello";
-import CategoryList from "./CategoryList";
+import {CategoryList} from "./CategoryList";
 import CategoryForm from "./CategoryForm";
 import PostList from "./PostList"
 import { PostDetails } from "./PostDetails";

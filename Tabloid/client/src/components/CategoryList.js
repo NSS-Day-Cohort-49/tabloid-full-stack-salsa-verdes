@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom';
-import Category from './Category';
+import { Category } from './Category';
 import { getAllCategories } from "../modules/categoryManager";
 
-const CategoryList = () => {
+export const CategoryList = () => {
   const [categories, setCategories] = useState([]);
 
   const getCategories = () => {
@@ -22,12 +22,10 @@ const CategoryList = () => {
       <button className="addCategoryButton"onClick={() => {history.push("/categories/add")}}>Add a Category</button>
           <p>
         {categories.map((category) => (
-          <Category category={category} key={category.id} />
+          <Category category={category} key={category.id} setCategories={setCategories} getCategories={getCategories}/>
         ))}
         </p>
       </div>
     </div>
   );
 };
-
-export default CategoryList;
