@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tabloid.Repositories;
 using Tabloid.Models;
+using System.Security.Claims;
 
 namespace Tabloid.Controllers
 {
@@ -128,12 +129,25 @@ namespace Tabloid.Controllers
 
 
 
-
+        private UserProfile GetCurrentUserProfileId()
+        {
+            var firebaseUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
+        }
 
         [HttpPost]
         public IActionResult Post(Post post)
         {
-            throw new NotImplementedException();
+            post.UserProfileId = GetCurrentUserProfileId().Id;
+            try
+            {
+                _postRepository.Add(post);
+                return CreatedAtAction("Get", new { id = post.Id }, post);
+                    
+            }catch
+            {
+                return BadRequest();
+            }
 
         }
     }
