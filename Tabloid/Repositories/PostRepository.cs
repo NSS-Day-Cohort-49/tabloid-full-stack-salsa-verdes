@@ -134,9 +134,114 @@ namespace Tabloid.Repositories
             }
         }
 
-        public void Add()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public void Add(Post post)
         {
-            throw new NotImplementedException();
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Post (Title, Content, ImageLocation, 
+                                        CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId)
+                                        VALUES (@title, @content, @imageLocation, SYSDateTime(), @publishDateTime,
+                                        @isApproved, @categoryId, @userProfileId)";
+
+                    DbUtils.AddParameter(cmd, "@title", post.Title);
+                    DbUtils.AddParameter(cmd, "@content", post.Content);
+                    DbUtils.AddParameter(cmd, "@imageLocation", post.ImageLocation);
+                    DbUtils.AddParameter(cmd, "@publishDateTime", post.PublishDateTime);
+                    DbUtils.AddParameter(cmd, "@isApproved", 1);
+                    DbUtils.AddParameter(cmd, "@categoryId", post.CategoryId);
+                    DbUtils.AddParameter(cmd, "@userProfileId", post.UserProfileId);
+
+                    post.Id = (int)cmd.ExecuteScalar();
+                }
+            }
         }
 
         public void Delete(int id)

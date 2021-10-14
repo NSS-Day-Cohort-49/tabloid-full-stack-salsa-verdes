@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tabloid.Repositories;
+using Tabloid.Models;
 
 namespace Tabloid.Controllers
 {
@@ -37,6 +38,103 @@ namespace Tabloid.Controllers
                 return NotFound();
             }
             return Ok(post);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        [HttpPost]
+        public IActionResult Post(Post post)
+        {
+            throw new NotImplementedException();
+
         }
     }
 }
