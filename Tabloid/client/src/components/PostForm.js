@@ -1,74 +1,80 @@
 import React, { useState } from "react";
-import { addTag, updateTag } from "../modules/tagManager";
+import { addPost } from "../modules/postManager";
 import { useHistory, useParams } from "react-router-dom";
 import {Container} from "reactstrap"
-import { getTagById } from "../modules/tagManager";
+import { getAllCategories } from "../modules/categoryManager";
 
-const TagForm = () => {
+const PostForm = () => {
+    
+    const history = useHistory();
 
-    const [ tag, setTag ] = useState({
-        name : "",
+    const [categories, setCategories] = useState([]);
+
+    const [ post, setPost ] = useState({
+        title : "",
+        content : "",
+        imageLocation : "",
+        publishDateTime : "",
+        categoryId : "",
     })
-
-    const tagId = useParams();
-
-    if(tagId.id && tag.name ==="")
-    {
-        getTagById(tagId.id)
-        .then(tag => setTag(tag));
-    }
+  
+    const getCategories = () => {
+        getAllCategories().then(categories => setCategories(categories));
+    };
+      
+    useEffect(() => {
+        getCategories();
+    }, []);
+      
 
     const handleInput = (event) => {
-        const newTag = {...tag};
-        newTag[event.target.id] = event.target.value;
-        setTag(newTag);
+        const newPost = {...post};
+        newPost[event.target.id] = event.target.value;
+        setPost(newPost);
     }
 
-    const handleCreateTag = () => {    
-        addTag(tag)
+    const handleClickCreatePost = () => {    
+        addPost(post)
 
-        .then(history.push("/tag"))
+        .then(history.push("/post"))
     }
-
-    const handleClickUpdateTag = () => {
-        updateTag(tag)
-        .then(history.push("/tag"))
-    }
-
-    const handleClickCancel = () => {
-        history.push("/tag")
-    }
-
-    const history = useHistory();
 
 return(
     <Container>
-        <div className="tagForm">
-            <h3>Add a Tag</h3>
+        <div className="postForm">
+            <h3>Add a Post</h3>
             <div className="container-5">
             <div className ="form-group">
+
                     <label for="name">Name</label>
-                    <input type="name" class="form-control" id="name" placeholder ="name" value={tag.name} onChange={handleInput} required/>
-                </div>
-                {tagId.id? 
+                    <input type="name" class="form-control" id="title" placeholder ="Title" value={post.title} onChange={handleInput} required/>
+
+                    <label for="content">Content</label>
+                    <input type="textarea" class="form-control" id="content" placeholder ="Content" value={post.content} onChange={handleInput} required/>
+
+                    <label for="imageLocation">Image URL</label>
+                    <input type="url" class="form-control" id="imageLocation" placeholder ="Image URL" value={post.imageLocation} onChange={handleInput} required/>
+
+                    <label for="name">Publish Date</label>
+                    <input type="dateTime" class="form-control" id="title" placeholder ="title" value={post.title} onChange={handleInput} required/>
+
+                    <label for="category">Category</label>
+                    <Input type="select" name="select" id="select">
+                        <option value={null}>Select a Category</option>
+                    {categories.map(c => {
+                        <option value={c.id} name={c.name}/>
+                    })}
+                    </Input>
+            </div>
+               
                 <div>
                     <button type="submit" class="btn btn-primary mr-3" onClick={event => {
-                        handleClickUpdateTag()
-                    }}>Update</button>
-
-                    <button type="cancel" class="btn btn-primary mx-3" onClick={event => {
-                        handleClickCancel()
-                    }}>Cancel</button>
-
-                </div>
-                    :
-                    <button type="submit" class="btn btn-primary" onClick={event => {
-                        handleCreateTag()
+                        handleClickCreatePost()
                     }}>Create</button>
-                }
+                </div>
             </div>
         </div>
     </Container>
 )}
 
-export default TagForm;
+export default PostForm;
