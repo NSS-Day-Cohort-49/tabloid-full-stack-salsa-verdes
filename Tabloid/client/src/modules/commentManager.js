@@ -1,6 +1,6 @@
 const _apiUrl = "/api/comment"
 
-export const GetAllComments = (id) => {
-    return fetch(`${_apiUrl}/GetCommentsByPostId${id}`)
+export const GetAllCommentsByPost = (id) => {
+    return fetch(`${_apiUrl}/GetCommentsByPost/${id}`)
     .then(res => res.json())
 };

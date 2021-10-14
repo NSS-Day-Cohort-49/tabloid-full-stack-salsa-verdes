@@ -19,10 +19,23 @@ namespace Tabloid.Controllers
             _commentRepository = commentRepository;
         }
 
+        [HttpGet]
+        public IActionResult Get()
+        {
+            var comments = _commentRepository.GetAll();
+            return Ok(comments);
+        }
+        
+
+
         [HttpGet("GetCommentsByPost/{id}")]
         public IActionResult GetCommentsByPost(int id)
         {
             var comments = _commentRepository.GetCommentsByPostId(id);
+            if (comments == null)
+            {
+                return null;
+            }
             return Ok(comments);
         }
 

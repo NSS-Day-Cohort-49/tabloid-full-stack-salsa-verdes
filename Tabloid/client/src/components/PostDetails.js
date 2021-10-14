@@ -3,7 +3,7 @@ import { ListGroup, ListGroupItem } from "reactstrap";
 import { useParams } from "react-router-dom";
 import {  getPostsId } from "../modules/postManager";
 import { Link } from "react-router-dom";
-import Post from "./Post";
+
 
 
 export const PostDetails = () => {
@@ -14,7 +14,7 @@ export const PostDetails = () => {
 
     useEffect(() => {
         getPostsId(id)
-        .then(setPost);
+        .then(setPost)
     }, [])
 
     return (
@@ -30,13 +30,13 @@ export const PostDetails = () => {
                         <p>{post.content}</p>
 
                 </div>
-                <Link to={`/comment/GetCommentsByPostId${id}`}>
+            </div>
+                <Link to={`/Comment/GetCommentsByPost/${id}`}>
                     <button type="button">
                         My Comments
                     </button>
-                </Link>
+                </Link>     
             </div>
-        </div>
     )
 }
 
