@@ -242,15 +242,16 @@ namespace Tabloid.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    SELECT p.Id, p.Title, p.Content, p.ImageLocation, p.CreateDateTime, p.PublishDateTime, p.IsApproved, p.CategoryId, p.UserProfileId,
-                    c.[Name],
-                    up.DisplayName, up.FirstName, up.LastName, up.Email, up.CreateDateTime, up.ImageLocation
-
+                    SELECT p.Id, p.Title, p.Content, p.ImageLocation AS HeaderImage, p.CreateDateTime, p.PublishDateTime, p.IsApproved, p.CategoryId, p.UserProfileId,
+                    c.[Name] AS CategoryName,
+                    up.DisplayName, up.FirstName, up.LastName, up.Email, up.CreateDateTime, up.ImageLocation AS AvatarImage, up.UserTypeId,
+                    ut.[Name] AS UserTypeName
                     FROM Post p
                     LEFT JOIN Category c ON p.CategoryId = c.Id
                     LEFT JOIN UserProfile up ON p.UserProfileId = up.Id
+                    LEFT JOIN UserType ut ON up.UserTypeId = ut.Id
                     WHERE p.UserProfileId = userProfileId 
-                    ORDER BY p.PublishDateTime DESC; 
+                    ORDER BY p.PublishDateTime DESC;                     
                     ";
 
                     cmd.Parameters.AddWithValue("@userProfileId", userProfileId);
