@@ -2,6 +2,7 @@ import React, {useEffect, useState, UseState} from "react";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import { useParams } from "react-router-dom";
 import {  getPostsId } from "../modules/postManager";
+import { Link } from "react-router-dom";
 import Post from "./Post";
 
 
@@ -29,6 +30,11 @@ export const PostDetails = () => {
                         <p>{post.content}</p>
 
                 </div>
+                <Link to={`/comment/GetCommentsByPostId${id}`}>
+                    <button type="button">
+                        My Comments
+                    </button>
+                </Link>
             </div>
         </div>
     )
