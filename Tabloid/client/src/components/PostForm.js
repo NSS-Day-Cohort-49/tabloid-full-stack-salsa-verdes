@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { addPost } from "../modules/postManager";
 import { useHistory, useParams } from "react-router-dom";
-import {Container} from "reactstrap"
+import {Container, Input} from "reactstrap"
 import { getAllCategories } from "../modules/categoryManager";
 
 const PostForm = () => {
@@ -47,22 +47,22 @@ return(
             <div className ="form-group">
 
                     <label for="name">Name</label>
-                    <input type="name" class="form-control" id="title" placeholder ="Title" value={post.title} onChange={handleInput} required/>
+                    <Input type="name" class="form-control" id="title" placeholder ="Title" value={post.title} onChange={handleInput} required/>
 
                     <label for="content">Content</label>
-                    <input type="textarea" class="form-control" id="content" placeholder ="Content" value={post.content} onChange={handleInput} required/>
+                    <Input type="textarea" class="form-control" id="content" placeholder ="Content" value={post.content} onChange={handleInput} required/>
 
                     <label for="imageLocation">Image URL</label>
-                    <input type="url" class="form-control" id="imageLocation" placeholder ="Image URL" value={post.imageLocation} onChange={handleInput} required/>
+                    <Input type="url" class="form-control" id="imageLocation" placeholder ="Image URL" value={post.imageLocation} onChange={handleInput} required/>
 
                     <label for="name">Publish Date</label>
-                    <input type="dateTime" class="form-control" id="title" placeholder ="title" value={post.title} onChange={handleInput} required/>
+                    <Input type="datetime-local" class="form-control" id="publishDateTime" placeholder ="title" value={post.title} onChange={handleInput} required/>
 
                     <label for="category">Category</label>
-                    <Input type="select" name="select" id="select">
+                    <Input type="select" name="select" id="categoryId" onChange={handleInput}>
                         <option value={null}>Select a Category</option>
                     {categories.map(c => {
-                        <option value={c.id} name={c.name}/>
+                        return <option value={c.id}>{c.name}</option>
                     })}
                     </Input>
             </div>

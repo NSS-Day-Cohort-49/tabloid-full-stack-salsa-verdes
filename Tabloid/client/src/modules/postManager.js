@@ -31,7 +31,7 @@ export const getPostsId = (id) => {
 
 export const addPost = (post) => 
 {
-    return token = getToken().then((token) =>
+    return getToken().then((token) =>
         fetch(_apiUrl, {
         method: "POST",
         headers: {

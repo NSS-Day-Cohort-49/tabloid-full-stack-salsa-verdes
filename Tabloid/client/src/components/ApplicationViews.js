@@ -8,6 +8,7 @@ import CategoryForm from "./CategoryForm";
 import PostList from "./PostList"
 import {TagList} from "./TagList"
 import TagForm from "./TagForm"
+import PostForm from "./PostForm";
 import { PostDetails } from "./PostDetails";
 
 export default function ApplicationViews({ isLoggedIn }) {
