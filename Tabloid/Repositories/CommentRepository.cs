@@ -66,6 +66,8 @@ namespace Tabloid.Repositories
                                         JOIN UserProfile up ON up.Id = c.UserProfileId
                                         JOIN Category cat ON p.CategoryId = cat.Id
                                         WHERE c.PostId = Id";
+
+                    DbUtils.AddParameter(cmd, "@Id", id);
                 }
             }
         }
