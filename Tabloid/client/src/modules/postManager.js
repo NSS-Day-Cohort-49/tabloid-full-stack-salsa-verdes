@@ -1,3 +1,5 @@
+import { getToken } from "./authManager";
+
 const _apiUrl = "/api/post";
 
 export const getPosts = () => {
@@ -9,5 +11,10 @@ export const getPostsId = (id) => {
 };
 
 export const getMyPosts = () => {
-  return fetch(`${_apiUrl}/myPosts`).then((res) => res.json());
+  return getToken().then((token) => {
+    fetch(`${_apiUrl}/myPosts`, {
+      method: "Get",
+      headers: { authorization: `bearer ${token}` },
+    }).then((res) => res.json());
+  });
 };

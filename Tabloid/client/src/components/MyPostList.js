@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { getMyPosts } from "../modules/postManager";
 import Post from "./Post";
+import { getToken } from "../modules/authManager";
 
 const MyPostList = () => {
-  const [myPosts, setMyPosts] = useState([]);
+  const [posts, setMyPosts] = useState([]);
 
   const getAllMyPosts = () => {
-    getMyPosts().then((myPosts) => setMyPosts(myPosts));
+    getMyPosts().then((posts) => setMyPosts(posts));
   };
 
   useEffect(() => {
@@ -18,7 +19,8 @@ const MyPostList = () => {
       <h1>My Posts</h1>
       <div className="row justify-content-center">
         <p>
-          {myPosts.map((post) => (
+          //!Err Web Token
+          {JSON.parse(posts).map((post) => (
             <Post post={post} key={post.Id} />
           ))}
         </p>
