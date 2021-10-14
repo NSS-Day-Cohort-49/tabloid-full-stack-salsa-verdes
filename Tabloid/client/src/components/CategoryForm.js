@@ -27,16 +27,16 @@ const CategoryForm = () => {
     const handleCreateCategory = () => {    
         addCategory(category)
 
-        .then(history.push("/categories"))
+        .then(history.push("/category"))
     }
 
     const handleClickUpdateCategory = () => {
         updateCategory(category)
-        .then(history.push("/categories"))
+        .then(history.push("/category"))
     }
 
     const handleClickCancel = () => {
-        history.push("/categories")
+        history.push("/category")
     }
 
     const history = useHistory();

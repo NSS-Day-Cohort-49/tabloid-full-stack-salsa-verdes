@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getPosts } from "../modules/postManager"
-import Post from "./Post";
+import { Post } from "./Post";
 
-const PostList = () => {
+export const PostList = () => {
 
 const [posts, setPosts] = useState([])
 
@@ -20,11 +20,10 @@ return (
         <div className="row justify-content-center">
             <p>
             {posts.map((post) => (
-                <Post post = {post} key = {post.Id} />
+                <Post post = {post} key = {post.Id}  setPosts={setPosts} getPosts={getPosts}/>
             ))}
             </p>
         </div>
     </div>
-);
-}
-export default PostList;
+    );
+};
