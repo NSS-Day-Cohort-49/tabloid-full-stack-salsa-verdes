@@ -250,7 +250,7 @@ namespace Tabloid.Repositories
                     LEFT JOIN Category c ON p.CategoryId = c.Id
                     LEFT JOIN UserProfile up ON p.UserProfileId = up.Id
                     LEFT JOIN UserType ut ON up.UserTypeId = ut.Id
-                    WHERE p.UserProfileId = userProfileId 
+                    WHERE p.UserProfileId = @userProfileId 
                     ORDER BY p.PublishDateTime DESC;                     
                     ";
 
