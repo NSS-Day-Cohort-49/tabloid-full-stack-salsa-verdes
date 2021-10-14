@@ -25,7 +25,8 @@ namespace Tabloid.Repositories
                                             p.Title, p.Content, p.ImageLocation, p.CreateDateTime,
                                             p.PublishDateTime, p.CategoryId, p.UserProfileId,
                                             up.Id, up.DisplayName, up.FirstName, up.LastName, 
-                                            up.Email, up.CreateDateTime, up.ImageLocation
+                                            up.Email, up.CreateDateTime, up.ImageLocation,
+                                            cat.Id, cat.Name
 
                                         FROM Comment c
                                         JOIN Post p ON p.Id = c.PostId
@@ -59,15 +60,26 @@ namespace Tabloid.Repositories
                                             p.Title, p.Content, p.ImageLocation, p.CreateDateTime,
                                             p.PublishDateTime, p.CategoryId, p.UserProfileId,
                                             up.Id, up.DisplayName, up.FirstName, up.LastName, 
-                                            up.Email, up.CreateDateTime, up.ImageLocation
+                                            up.Email, up.CreateDateTime, up.ImageLocation,
+                                            cat.Id, cat.Name
 
                                         FROM Comment c
                                         JOIN Post p ON p.Id = c.PostId
                                         JOIN UserProfile up ON up.Id = c.UserProfileId
                                         JOIN Category cat ON p.CategoryId = cat.Id
-                                        WHERE c.PostId = Id";
+                                        WHERE c.PostId = @Id";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
+
+                    var reader = cmd.ExecuteReader();
+                    List<Comment> comments = new List<Comment>();
+                    while (reader.Read())
+                    {
+                        comments.Add(NewCommentFromReader(reader));
+                    }
+
+                    reader.Close();
+                    return comments;
                 }
             }
         }
