@@ -28,9 +28,9 @@ export default function ApplicationViews({ isLoggedIn }) {
           {isLoggedIn ? <CategoryForm /> : <Redirect to="/login" />}
         </Route>
 
-        {/* <Route path="/categories/edit/:categoryId(\d+)" exact>
+        <Route path="/categories/edit/:id" exact>
           {isLoggedIn ? <CategoryForm /> : <Redirect to="/login" />}
-        </Route> */}
+        </Route>
 
         <Route path="/post" exact>
           {isLoggedIn ? <PostList /> : <Redirect to="/login" />}

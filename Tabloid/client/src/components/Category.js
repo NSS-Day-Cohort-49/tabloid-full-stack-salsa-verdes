@@ -1,23 +1,41 @@
-import React, { useContext }  from "react";
-import { Card, CardBody } from "reactstrap";
-import { useHistory } from 'react-router-dom';
-import { deleteCategory } from "../modules/categoryManager";
+import React from "react";
+import {Card ,CardBody, Row, Button, Col} from "reactstrap"
+import { deleteCategory, getAllCategories } from "../modules/categoryManager";
+import { useHistory } from "react-router-dom";
 
-    export const Category = ({ category, getCategories, setCategories }) => {
+export const Category = ({category, setCategories}) => {
 
-    const history = useHistory()
+const history = useHistory();
 
-    const handleClickDeleteCategory = () => {deleteCategory(category) 
-      // .then(() =>{history.push("/categories")} )}
-      .then(getCategories().then(categories => setCategories(categories)))}
+const handleClickDeleteCategory = () => {
+    const confirm = window.confirm("Are you sure you want to delete this category?")
+    if(confirm== true)
+    {deleteCategory(category)
+    .then(getAllCategories().then(categories => setCategories(categories)))} else {
+    return;
+}
+}
 
-  return (
-    <Card >
-      <CardBody>
-      <strong className="text-left px-2">{category.name}</strong>
-      <button className="editCategoryButton" onClick={() => { history.push(`/categories/edit/${category.id}`)}}>Edit a Category</button>
-      <button className="deleteCategoryButton" onClick={handleClickDeleteCategory}>Delete a Category</button>
-      </CardBody>
-    </Card>
-  );
-};
+const handleClickEditTag = () => {
+    history.push(`/categories/edit/${category.id}`)
+}
+
+    return (
+        <Card>
+            <CardBody>
+                <Row>
+                    <Col>
+                        <strong>{category.name}</strong>
+                    </Col>
+                    <Col>
+                        <Button onClick={handleClickEditTag}color="primary">Edit</Button>
+                    </Col>
+                    <Col>
+                        <Button onClick={handleClickDeleteCategory}color="danger">Delete</Button>
+                    </Col>
+                </Row>
+            </CardBody>
+        </Card>
+    )
+}
+
