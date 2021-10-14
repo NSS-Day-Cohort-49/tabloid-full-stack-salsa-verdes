@@ -3,7 +3,7 @@ import {Card ,CardBody, Row, Button, Col} from "reactstrap"
 import { deleteTag, getTags } from "../modules/tagManager";
 import { useHistory } from "react-router-dom";
 
-const Tag = ({tag, setTags, getTags}) => {
+const Tag = ({tag, setTags}) => {
 
 const history = useHistory();
 
@@ -11,7 +11,9 @@ const handleClickDeleteTag = () => {
     const confirm = window.confirm("Are you sure you want to delete this tag?")
     if(confirm== true)
     {deleteTag(tag)
-    .then(getTags().then(tags => setTags(tags)))} else {
+    .then(() => {
+        getTags().then(tags => setTags(tags))}
+    )} else {
     return;
 }
         
