@@ -42,9 +42,9 @@ console.log(postTags)
                 
             <div className="row justify-content-center">
                 <div className="col-sm-12 col-lg-6">
-                    
                         <img src={post.imageLocation} /> 
                         <h2>{post.title}</h2>
+                        <div>Tags : {postTags.map(pt => `${pt.tagName} `)}</div>
                         <div>{post.category?.name}</div>
                         <div>{post.userProfile?.displayName} {date}</div><br></br>
                         <p>{post.content}</p>

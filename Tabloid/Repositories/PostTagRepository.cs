@@ -16,7 +16,7 @@ namespace Tabloid.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT * FROM PostTag
+                    cmd.CommandText = @"SELECT pt.*, t.Name FROM PostTag pt JOIN Tag t ON pt.TagId = t.Id
                                         WHERE PostId = @postId";
 
                     DbUtils.AddParameter(cmd, "@postId", postId);
@@ -30,7 +30,8 @@ namespace Tabloid.Repositories
                             postTags.Add(new PostTag
                             {
                                 PostId = postId,
-                                TagId = DbUtils.GetInt(reader, "TagId")
+                                TagId = DbUtils.GetInt(reader, "TagId"),
+                                TagName = DbUtils.GetString(reader, "Name")
                             });
                         }
                     }
