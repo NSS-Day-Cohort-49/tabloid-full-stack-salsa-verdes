@@ -4,7 +4,7 @@ import { Row, Col, Button } from "reactstrap";
 import { Category } from "./Category";
 import { getAllCategories } from "../modules/categoryManager";
 
-const CategoryList = () => {
+export const CategoryList = () => {
   const [categories, setCategories] = useState([]);
 
   const getCategories = () => {
@@ -50,5 +50,3 @@ const CategoryList = () => {
     </div>
   );
 };
-
-export default CategoryList;

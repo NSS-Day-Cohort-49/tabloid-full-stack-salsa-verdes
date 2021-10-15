@@ -5,7 +5,7 @@ import Register from "./Register";
 import Hello from "./Hello";
 import PostList from "./PostList";
 import MyPostList from "./MyPostList";
-import CategoryList from "./CategoryList";
+import { CategoryList } from "./CategoryList";
 import CategoryForm from "./CategoryForm";
 // import {PostList} from "./PostList"
 import { TagList } from "./TagList";

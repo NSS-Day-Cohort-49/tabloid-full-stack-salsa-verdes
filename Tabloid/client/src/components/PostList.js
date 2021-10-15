@@ -9,8 +9,6 @@ const PostList = () => {
 
   const history = useHistory();
 
-  const [posts, setPosts] = useState([]);
-
   const getAllPosts = () => {
     getPosts().then((posts) => setPosts(posts));
   };
