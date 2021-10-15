@@ -141,16 +141,43 @@ namespace Tabloid.Controllers
         public IActionResult Post(Post post)
         {
             post.UserProfileId = GetCurrentUserProfile().Id;
-            //try
-            //{
+            try
+            {
                 _postRepository.Add(post);
                 return CreatedAtAction("Get", new { id = post.Id }, post);
-                    
-            //}catch
-            //{
-            //    return BadRequest();
-            //}
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+            [HttpPut]
+            public IActionResult Update(Post post)
+            {
+                try
+                {
+                    _postRepository.Update(post);
 
+                    return Ok(post);
+                }
+                catch
+                {
+                    return BadRequest();
+                }
+            }
+
+        [HttpPost("CompareUser")]
+        public IActionResult CompareUser(Post post)
+        {
+            var userProfile = GetCurrentUserProfile();
+            if (userProfile.Id == post.UserProfileId)
+            {
+                return Ok("UserMatch");
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }
