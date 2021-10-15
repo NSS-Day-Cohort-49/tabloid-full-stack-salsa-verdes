@@ -28,6 +28,9 @@ insert into UserProfile (Id, DisplayName, FirstName, LastName, Email, CreateDate
 insert into UserProfile (Id, DisplayName, FirstName, LastName, Email, CreateDateTime, ImageLocation, UserTypeId, FirebaseUserId) values (9, 'ecornfoot8', 'Emmaline', 'Cornfoot', 'ecornfoot8@cargocollective.comx', '2020-02-17', 'https://robohash.org/blanditiismaioresest.png?size=150x150&set=set1', 2, 'smzswoscvmfpvugpmgvkflihdmka');
 insert into UserProfile (Id, DisplayName, FirstName, LastName, Email, CreateDateTime, ImageLocation, UserTypeId, FirebaseUserId) values (10, 'jmaruska9', 'Jody', 'Maruska', 'jmaruska9@netscape.comx', '2020-02-09', 'https://robohash.org/voluptatemexercitationemdignissimos.png?size=150x150&set=set1', 1, 'abcnibyohfhukxngaegjxxzionyt');
 insert into UserProfile (Id, DisplayName, FirstName, LastName, Email, CreateDateTime, ImageLocation, UserTypeId, FirebaseUserId) values (11, 'rsandwith0', 'Reina', 'Sandwith', 'rsandwith0@google.com.brx', '2020-04-23', 'https://robohash.org/numquamutut.png?size=150x150&set=set1', 1, 'jpuhyzaicsokywncxveknzowfpdu');
+insert into UserProfile (Id, DisplayName, FirstName, LastName, Email, CreateDateTime, ImageLocation, UserTypeId, FirebaseUserId) values (12, 'scythemeister42', 'Maka', 'Alburn', 'maka@alburn.com', '2021-10-14', 'https://robohash.org/numquamutut.png?size=150x150&set=set1', 1, 'ofqIU8L0qIUpnv3EG1npGCOZ3Oq2');
+insert into UserProfile (Id, DisplayName, FirstName, LastName, Email, CreateDateTime, ImageLocation, UserTypeId, FirebaseUserId) values (13, 'souleater42', 'Soul', 'Evans', 'soul@eater.com', '2021-10-14', 'https://robohash.org/numquamutut.png?size=150x150&set=set1', 2, 'Q6J46QrwBIUZUoro6hg5ExnG9ru2');
+
 set identity_insert [UserProfile] off
 
 set identity_insert [Post] on

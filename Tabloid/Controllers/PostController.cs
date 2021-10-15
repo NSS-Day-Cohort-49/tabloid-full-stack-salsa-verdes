@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Tabloid.Repositories;
 using Tabloid.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+
 
 namespace Tabloid.Controllers
 {
@@ -46,11 +48,24 @@ namespace Tabloid.Controllers
             return Ok(post);
         }
 
+        [HttpGet("myPosts")]
+        public IActionResult GetLoggedInUserPosts()
+        {
+            var loggedInUser = GetCurrentUserProfile();
+            // var fireBaseUser = _userProfileRepository.GetByFirebaseUserId(loggedInUser);
+            var posts = _postRepository.GetAllPostsForUser(loggedInUser.Id);
+            return Ok(posts);
+        }
         private UserProfile GetCurrentUserProfile()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
         }
+
+        // private string GetCurrentUserProfileId()
+        // {
+        //     return User.FindFirstValue(ClaimTypes.NameIdentifier);
+        // }
 
         [HttpPost]
         public IActionResult Post(Post post)
@@ -60,7 +75,7 @@ namespace Tabloid.Controllers
             {
                 _postRepository.Add(post);
                 return CreatedAtAction("Get", new { id = post.Id }, post);
-        }
+            }
             catch
             {
                 return BadRequest();
@@ -74,109 +89,21 @@ namespace Tabloid.Controllers
             _postRepository.Delete(id);
             return NoContent();
         }
-            [HttpPut]
-            public IActionResult Update(Post post)
-            {
+        [HttpPut]
+        public IActionResult Update(Post post)
+        {
             try
             {
                 _postRepository.Update(post);
 
-                    return Ok(post);
+                return Ok(post);
             }
             catch
             {
                 return BadRequest();
             }
         }
-        }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
