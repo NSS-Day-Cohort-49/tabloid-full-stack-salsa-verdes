@@ -36,7 +36,9 @@ namespace Tabloid.Controllers
         [HttpGet("{id}")]
         public IActionResult get(int id)
         {
-            var post = _postRepository.GetById(id);
+            var currentUserId = GetCurrentUserProfile().Id;
+
+            var post = _postRepository.GetById(id, currentUserId);
             if (post == null)
             {
                 return NotFound();

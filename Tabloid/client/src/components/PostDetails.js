@@ -38,8 +38,6 @@ const handleClickShowTags = () => {
     }
     else (setShowTags(true))
 }
-
-console.log(postTags)
     return (
         <div className="container">
             {showTags?
@@ -59,9 +57,10 @@ console.log(postTags)
                         <img src={post.imageLocation} /> 
                         <Row>
                         <h2>{post.title}</h2>
+                        {post.isByCurrentUser?
                         <button type="submit" class="btn btn-primary mx-3" onClick={event => {
                         handleClickShowTags()
-                    }}>Manage Tags</button>
+                    }}>Manage Tags</button> : null}
                         </Row>
                         <div>Tags : {postTags.map(pt => `${pt.tagName} `)}</div>
                         <div>{post.category?.name}</div>

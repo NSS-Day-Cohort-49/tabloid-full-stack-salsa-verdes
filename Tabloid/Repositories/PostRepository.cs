@@ -74,7 +74,7 @@ namespace Tabloid.Repositories
             }
         }
 
-        public Post GetById(int id)
+        public Post GetById(int id, int currentUserId)
         {
             using (var conn = Connection)
             {
@@ -125,6 +125,7 @@ namespace Tabloid.Repositories
                                 CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
                                 ImageLocation = DbUtils.GetString(reader, "ImageLocation")
                             },
+                            IsByCurrentUser = currentUserId == DbUtils.GetInt(reader, "UserProfileId") ? true : false
 
                         };
                     }

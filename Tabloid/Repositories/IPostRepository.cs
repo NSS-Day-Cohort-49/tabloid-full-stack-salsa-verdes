@@ -11,7 +11,7 @@ namespace Tabloid.Repositories
         void Add(Post post);
         void Delete(int id);
         List<Post> GetAll(int currentUserId);
-        Post GetById(int id);
+        Post GetById(int id, int userId);
         void Update(Post post);
     }
 }
