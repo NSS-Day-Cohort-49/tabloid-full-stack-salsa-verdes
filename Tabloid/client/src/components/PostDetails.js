@@ -64,7 +64,7 @@ const handleClickShowTags = () => {
                         </Row>
                         <div>Tags : {postTags.map(pt => `${pt.tagName} `)}</div>
                         <div>{post.category?.name}</div>
-                        <div>{post.userProfile?.displayName} {date}</div><br></br>
+                        <div>Posted By: {post.userProfile?.displayName} on {date}</div><br></br>
                         <p>{post.content}</p>
 
                 </div>

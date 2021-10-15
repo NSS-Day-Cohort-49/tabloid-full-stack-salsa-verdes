@@ -1,93 +1,46 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import {Card ,CardBody, Col, Row, Button} from "reactstrap"
+import { deletePost, getPosts } from "../modules/postManager";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const Post = ({post}) => {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export const Post = ({post, setPosts}) => {
 
 const history = useHistory();
-
-const handleClickDeletePost = () => {
-    return
-}
 
 const handleClickEditPost = () => {
     history.push(`/post/edit/${post.id}`)
 }
 
+    const handleClickDeletePost = () => {
+        const confirm = window.confirm("Are you sure you want to delete this post?")
+        if(confirm== true)
+        {deletePost(post)
+        .then(getPosts().then(posts => setPosts(posts)))} else {
+        return;
+    }}
+
     return (
-        <Card className="">
+        <Card>
             <CardBody>
-                <Row>
-                <Col>
+                    <Row>
+                        <Col>
                     <Link to={`/post/${post.id}`}>
-                    <strong>{post.title}</strong>
-                     </Link>
-                    {post.userProfile?.displayName}
-                    {post.category?.name}
-                </Col>
-                {post.isByCurrentUser == true ? 
-                <>
+                        <strong>Title: {post.title}</strong>
+                    </Link>
+                        </Col>
                     <Col>
-                        <Button onClick={handleClickEditPost}color="primary">Edit</Button>
+                    Posted By: {post.userProfile?.displayName}
                     </Col>
                     <Col>
+                    Category: {post.category?.name}
+                    </Col>
+                    {post.isByCurrentUser == true ? 
+                <>
+                    <Col>
                         <Button onClick={handleClickDeletePost}color="danger">Delete</Button>
+                    </Col>
+                    <Col>
+                        <Button onClick={handleClickEditPost}color="primary">Edit</Button>
                     </Col>
                 </>
                  : null}
@@ -96,4 +49,3 @@ const handleClickEditPost = () => {
         </Card>
     )
 }
-export default Post

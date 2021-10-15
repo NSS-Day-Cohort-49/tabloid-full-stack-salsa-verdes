@@ -4,7 +4,7 @@ import Post from "./Post";
 import { Col, Row } from "reactstrap"
 import { useHistory } from "react-router-dom";
 
-const PostList = () => {
+export const PostList = () => {
 
 const history = useHistory();
 
@@ -40,11 +40,10 @@ return (
         <div className="row">
             <p>
             {posts.map((post) => (
-                <Post post = {post} key = {post.Id} />
+                <Post post = {post} key = {post.Id}  setPosts={setPosts} getPosts={getPosts}/>
             ))}
             </p>
         </div>
     </div>
-);
-}
-export default PostList;
+    );
+};
