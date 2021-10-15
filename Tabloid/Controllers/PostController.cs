@@ -155,17 +155,17 @@ namespace Tabloid.Controllers
             [HttpPut]
             public IActionResult Update(Post post)
             {
-                try
-                {
-                    _postRepository.Update(post);
+            try
+            {
+                _postRepository.Update(post);
 
                     return Ok(post);
-                }
-                catch
-                {
-                    return BadRequest();
-                }
             }
+            catch
+            {
+                return BadRequest();
+            }
+        }
         }
     }
 

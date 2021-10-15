@@ -258,10 +258,12 @@ namespace Tabloid.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"UPDATE Post SET (Title, Content, ImageLocation, 
-                                        CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId)
-                                        VALUES (@title, @content, @imageLocation, SYSDateTime(), @publishDateTime,
-                                        @isApproved, @categoryId, @userProfileId)
+                    cmd.CommandText = @"UPDATE Post SET 
+                                        Title = @title,
+                                        Content = @content,
+                                        ImageLocation = @imageLocation,
+                                        PublishDateTime = @publishDateTime,
+                                        CategoryId = @categoryId
                                         WHERE Id = @id";
 
                     DbUtils.AddParameter(cmd, "@title", post.Title);
@@ -270,6 +272,7 @@ namespace Tabloid.Repositories
                     DbUtils.AddParameter(cmd, "@publishDateTime", post.PublishDateTime);
                     DbUtils.AddParameter(cmd, "@categoryId", post.CategoryId);
                     DbUtils.AddParameter(cmd, "@userProfileId", post.UserProfileId);
+                    DbUtils.AddParameter(cmd, "@id", post.Id);
 
                     cmd.ExecuteNonQuery();
                 }

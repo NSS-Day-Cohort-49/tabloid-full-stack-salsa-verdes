@@ -163,7 +163,15 @@ export const getPostById = (id) => {
 
 export const updatePost = (post) =>
 {
-    return
+    return getToken().then((token) =>
+    fetch(_apiUrl, {
+    method: "PUT",
+    headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+    },
+    body: JSON.stringify(post),
+}))
 }
 
 
