@@ -12,6 +12,8 @@ import { TagList } from "./TagList";
 import TagForm from "./TagForm";
 import PostForm from "./PostForm";
 import { PostDetails } from "./PostDetails";
+import { CommentList } from "./CommentList";
+import { CommentForm } from "./CommentForm";
 
 export default function ApplicationViews({ isLoggedIn }) {
   return (
@@ -63,6 +65,14 @@ export default function ApplicationViews({ isLoggedIn }) {
 
         <Route path="/post/:id" exact>
           {isLoggedIn ? <PostDetails /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/comment/GetCommentsByPost/:id" exact>
+        {isLoggedIn ? <CommentList /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route path="/comment/add" exact>
+          {isLoggedIn ? <CommentForm /> : <Redirect to="/login" />}
         </Route>
 
         <Route path="/login">

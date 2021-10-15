@@ -1,8 +1,10 @@
 import React, {useEffect, useState, UseState} from "react";
 import { useParams } from "react-router-dom";
+import { useHistory } from "react-router";
 import {  getPostById } from "../modules/postManager";
-import { getTags } from "../modules/tagManager";
+import { Link } from "react-router-dom";
 import { getPostTags, updatePostTags } from "../modules/postTagManager"
+import { getTags } from "../modules/tagManager";
 import { Row } from "reactstrap";
 
 
@@ -14,6 +16,8 @@ export const PostDetails = () => {
     const { id } = useParams();
 
     const date = new Date(post.publishDateTime).toDateString()
+
+    const history = useHistory();
 
     useEffect(() => {
         getPostById(id)
@@ -38,6 +42,10 @@ const handleClickShowTags = () => {
     }
     else (setShowTags(true))
 }
+
+const handleClickCommentForm = () => {
+    history.push("/comment/add")
+}
     return (
         <div className="container">
             {showTags?
@@ -53,6 +61,10 @@ const handleClickShowTags = () => {
             :
             null}              
             <div className="row justify-content-center">
+            </div>
+                <div>
+
+
                 <div className="col-sm-12 col-lg-6">
                         <img src={post.imageLocation} /> 
                         <Row>
@@ -68,7 +80,15 @@ const handleClickShowTags = () => {
                         <p>{post.content}</p>
 
                 </div>
+                <Link to={`/Comment/GetCommentsByPost/${id}`}>
+                    <button class = "btn-primary" type="button">
+                        My Comments
+                    </button>
+
+                </Link>     
+                    {/* Not yet working */}
+                    {/* <button className="btn-primary" onClick={handleClickCommentForm} color="primary">Add a Comment</button> */}
+                </div>
             </div>
-        </div>
     )
 }
