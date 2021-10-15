@@ -41,7 +41,7 @@ namespace Tabloid.Controllers
             return Ok(post);
         }
 
-        [HttpGet("myPosts")]   
+        [HttpGet("myPosts")]
         public IActionResult GetLoggedInUserPosts()
         {
             var loggedInUser = GetCurrentUserProfileId();
@@ -55,5 +55,11 @@ namespace Tabloid.Controllers
             return User.FindFirstValue(ClaimTypes.NameIdentifier);
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _postRepository.Delete(id);
+            return NoContent();
+        }
     }
 }

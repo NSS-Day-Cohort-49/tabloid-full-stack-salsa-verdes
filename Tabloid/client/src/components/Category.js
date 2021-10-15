@@ -17,7 +17,7 @@ const handleClickDeleteCategory = () => {
 }
 
 const handleClickEditTag = () => {
-    history.push(`/categories/edit/${category.id}`)
+    history.push(`/category/edit/${category.id}`)
 }
 
     return (

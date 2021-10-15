@@ -23,3 +23,9 @@ export const getMyPosts = () => {
     )
     .then((res) => res.json());
 };
+
+export const deletePost = (post) => {
+  return fetch(`${_apiUrl}/${post.id}`, {
+    method: "DELETE",
+  });
+};
