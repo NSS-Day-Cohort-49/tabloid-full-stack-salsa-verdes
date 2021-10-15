@@ -20,7 +20,7 @@ export const PostDetails = () => {
     return (
         <div className="container">
             <div className="row justify-content-center">
-                <div className="col-sm-12 col-lg-6">
+                <div>
 
 
                         <img src={post.imageLocation} /> 
@@ -30,12 +30,12 @@ export const PostDetails = () => {
                         <p>{post.content}</p>
 
                 </div>
-            </div>
                 <Link to={`/Comment/GetCommentsByPost/${id}`}>
-                    <button type="button">
+                    <button class = "btn-primary" type="button">
                         My Comments
                     </button>
                 </Link>     
+            </div>
             </div>
     )
 }

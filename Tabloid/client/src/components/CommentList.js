@@ -26,7 +26,11 @@ export const CommentList = () => {
                 <div>
                     <h3>No comments on this post</h3>
 
-                    <Link to={`/post`}>Return to Posts</Link>
+                    <Link to={`/post`}>
+                        <button class = "btn-primary" type="button">
+                            Return to Posts
+                        </button>
+                    </Link>
                 </div>
                     
                 
