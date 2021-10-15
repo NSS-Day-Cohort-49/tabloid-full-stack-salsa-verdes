@@ -18,6 +18,7 @@ export const CommentList = () => {
     }, [])
 
     console.log(comments)
+    let reversedComments = comments.sort((a, b ) => b.id - a.id)
 
     return (
         <div>
@@ -36,7 +37,7 @@ export const CommentList = () => {
                 
         ) : (
             <div>
-            {comments.map((comment) => (
+            {reversedComments.map((comment) => (
                 <Comment comment = {comment} key = {comment.Id} />
             ))}
             </div>
