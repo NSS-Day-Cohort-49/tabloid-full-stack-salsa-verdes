@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {Card ,CardBody} from "reactstrap"
-import { compareUserIdToCreatorId } from "../modules/postManager";
+import {Card ,CardBody, Col, Row, Button} from "reactstrap"
 
 
 
@@ -49,15 +48,56 @@ const Post = ({post}) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+const handleClickDeletePost = () => {
+    return
+}
+
+const handleClickEditPost = () => {
+    return
+}
+
     return (
         <Card className="">
             <CardBody>
-                <Link to={`/post/${post.id}`}>
+                {post.isByCurrentUser == true ? 
+                <div>
+                <Row>
+                    <Col>
+                    <Link to={`/post/${post.id}`}>
                     <strong>{post.title}</strong>
-                </Link>
-                {post.userProfile?.displayName}
-                {post.category?.name}
-                {post.isByCurrentUser != true ? <p>"user"</p> : <p>"no match"</p>}
+                     </Link>
+                    {post.userProfile?.displayName}
+                    {post.category?.name}
+                    </Col>
+                    <Col>
+                        <Button onClick={handleClickEditPost}color="primary">Edit</Button>
+                    </Col>
+                    <Col>
+                        <Button onClick={handleClickDeletePost}color="danger">Delete</Button>
+                    </Col>
+                </Row>
+                </div>
+                 : 
+                 <Col>
+                 <Link to={`/post/${post.id}`}>
+                 <strong>{post.title}</strong>
+                  </Link>
+                 {post.userProfile?.displayName}
+                 {post.category?.name}
+                 </Col>}
             </CardBody>
         </Card>
     )
