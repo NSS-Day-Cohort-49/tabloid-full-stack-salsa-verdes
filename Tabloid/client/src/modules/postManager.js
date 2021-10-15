@@ -186,16 +186,4 @@ export const addPost = (post) =>
     
 }
 
-export const compareUserIdToCreatorId = (item) => {
-    return getToken()
-    .then((token) =>
-      fetch(`${_apiUrl}/CompareUser`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(item)
-      })
-      .then(res => res.json())
-    )};
+

@@ -10,7 +10,7 @@ namespace Tabloid.Repositories
     {
         void Add(Post post);
         void Delete(int id);
-        List<Post> GetAll();
+        List<Post> GetAll(int currentUserId);
         Post GetById(int id);
         void Update(Post post);
     }

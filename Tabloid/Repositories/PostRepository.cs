@@ -13,7 +13,7 @@ namespace Tabloid.Repositories
     {
         public PostRepository(IConfiguration configuration) : base(configuration) { }
 
-        public List<Post> GetAll()
+        public List<Post> GetAll(int currentUserId)
         {
             using (var conn = Connection)
             {
@@ -63,6 +63,7 @@ namespace Tabloid.Repositories
                                 CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
                                 ImageLocation = DbUtils.GetString(reader, "ImageLocation")
                             },
+                            IsByCurrentUser = currentUserId == DbUtils.GetInt(reader, "UserProfileId") ? true : false 
                         });
 
                     }

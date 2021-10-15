@@ -27,7 +27,8 @@ namespace Tabloid.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var posts = _postRepository.GetAll();
+            var currentUserId = GetCurrentUserProfile().Id;
+            var posts = _postRepository.GetAll(currentUserId);
 
             return Ok(posts);
         }
@@ -165,19 +166,6 @@ namespace Tabloid.Controllers
                     return BadRequest();
                 }
             }
-
-        [HttpPost("CompareUser")]
-        public IActionResult CompareUser(Post post)
-        {
-            var userProfile = GetCurrentUserProfile();
-            if (userProfile.Id == post.UserProfileId)
-            {
-                return Ok("UserMatch");
-            }
-            else
-            {
-                return NotFound();
-            }
         }
     }
-}
+

@@ -46,18 +46,7 @@ import { compareUserIdToCreatorId } from "../modules/postManager";
 
 const Post = ({post}) => {
 
-    
-const postedByUserCheck = ()=> {
-    compareUserIdToCreatorId(post)
-    .then(res => {
-        if (res.ok){
-            return true;
-        }
-        else {
-            return false
-        }
-})
-}
+
 
 
     return (
@@ -68,7 +57,7 @@ const postedByUserCheck = ()=> {
                 </Link>
                 {post.userProfile?.displayName}
                 {post.category?.name}
-                {postedByUserCheck() ? <p>"user"</p> : <p>"no match"</p>}
+                {post.isByCurrentUser != true ? <p>"user"</p> : <p>"no match"</p>}
             </CardBody>
         </Card>
     )
