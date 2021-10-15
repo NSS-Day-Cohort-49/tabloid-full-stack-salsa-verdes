@@ -35,7 +35,7 @@ return (
         </Row>
             <p>
             {tags.map((tag) => (
-                <Tag tag = {tag} key = {tag.Id} setTags = {setTags} getTags = {getTags}/>
+                <Tag tag = {tag} key = {tag.Id} setTags = {setTags} />
             ))}
             </p>
         </div>

@@ -12,7 +12,7 @@ const TagForm = () => {
 
     const tagId = useParams();
 
-    if(tagId.id && tag.name =="")
+    if(tagId.id && tag.name ==="")
     {
         getTagById(tagId.id)
         .then(tag => setTag(tag));

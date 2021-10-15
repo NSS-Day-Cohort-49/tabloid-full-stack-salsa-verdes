@@ -8,10 +8,10 @@ namespace Tabloid.Repositories
 {
     public interface IPostRepository
     {
-        void Add();
+        void Add(Post post);
         void Delete(int id);
-        List<Post> GetAll();
-        Post GetById(int id);
+        List<Post> GetAll(int currentUserId);
+        Post GetById(int id, int userId);
         void Update(Post post);
     }
 }

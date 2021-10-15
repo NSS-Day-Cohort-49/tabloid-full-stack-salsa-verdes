@@ -6,11 +6,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tabloid.Repositories;
+using Tabloid.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Tabloid.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PostController : ControllerBase
     {
         private readonly IPostRepository _postRepository;
@@ -24,7 +28,8 @@ namespace Tabloid.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var posts = _postRepository.GetAll();
+            var currentUserId = GetCurrentUserProfile().Id;
+            var posts = _postRepository.GetAll(currentUserId);
 
             return Ok(posts);
         }
@@ -32,9 +37,9 @@ namespace Tabloid.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            
-            var post = _postRepository.GetById(id);
-           
+            var currentUserId = GetCurrentUserProfile().Id;
+
+            var post = _postRepository.GetById(id, currentUserId);
             if (post == null)
             {
                 return NotFound();
@@ -42,34 +47,27 @@ namespace Tabloid.Controllers
             return Ok(post);
         }
 
+        private UserProfile GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
+        }
 
+        [HttpPost]
+        public IActionResult Post(Post post)
+        {
+            post.UserProfileId = GetCurrentUserProfile().Id;
+            try
+            {
+                _postRepository.Add(post);
+                return CreatedAtAction("Get", new { id = post.Id }, post);
+        }
+            catch
+            {
+                return BadRequest();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            }
+        }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
@@ -77,5 +75,109 @@ namespace Tabloid.Controllers
             _postRepository.Delete(id);
             return NoContent();
         }
+            [HttpPut]
+            public IActionResult Update(Post post)
+            {
+            try
+            {
+                _postRepository.Update(post);
+
+                    return Ok(post);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+        }
     }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
