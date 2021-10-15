@@ -21,7 +21,7 @@ namespace Tabloid.Repositories
                 {
                     cmd.CommandText = @"
                                         SELECT c.Id, c.Subject, c.Content, 
-                                            c.PostId, c.UserProfileId,
+                                            c.PostId, c.UserProfileId, c.CreateDateTime,
                                             p.Title, p.Content, p.ImageLocation, p.CreateDateTime,
                                             p.PublishDateTime, p.CategoryId, p.UserProfileId,
                                             up.Id, up.DisplayName, up.FirstName, up.LastName, 
@@ -32,7 +32,7 @@ namespace Tabloid.Repositories
                                         JOIN Post p ON p.Id = c.PostId
                                         JOIN UserProfile up ON up.Id = c.UserProfileId
                                         JOIN Category cat ON p.CategoryId = cat.Id
-                                        ORDER By p.CreateDateTIme DESC";
+                                        ORDER By c.CreateDateTIme ASC";
                     var reader = cmd.ExecuteReader();
 
                     var comments = new List<Comment>();
@@ -56,7 +56,7 @@ namespace Tabloid.Repositories
                 {
                     cmd.CommandText = @"
                                         SELECT c.Id, c.Subject, c.Content, 
-                                            c.PostId, c.UserProfileId,
+                                            c.PostId, c.UserProfileId, c.CreateDateTime,
                                             p.Title, p.Content, p.ImageLocation, p.CreateDateTime,
                                             p.PublishDateTime, p.CategoryId, p.UserProfileId,
                                             up.Id, up.DisplayName, up.FirstName, up.LastName, 
