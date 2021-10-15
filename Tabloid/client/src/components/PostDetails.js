@@ -24,9 +24,12 @@ export const PostDetails = () => {
     }, [])
 
 const handleCheck = (tagId) => {
-    updatePostTags(new {tagId : tagId, postId : id})
+    const postTag = { tagId: tagId, postId: id }
+    updatePostTags(postTag)
+    .then(getPostTags(id))
+    .then(pt => setPostTags(pt))
 }
-
+console.log(postTags)
     return (
         <div className="container">
             <div class="tagsModal">

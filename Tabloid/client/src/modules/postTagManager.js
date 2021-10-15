@@ -22,5 +22,5 @@ export const getPostTags = (postId) => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(postTag),
-        });
+        }).then(res => res.json())
     }

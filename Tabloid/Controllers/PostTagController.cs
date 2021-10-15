@@ -43,7 +43,7 @@ namespace Tabloid.Controllers
             try
             {
                 _postTagRepository.Delete(postTag);
-                return Ok(postTag);
+                return Ok(_postTagRepository.Get(postTag.PostId));
             }
             catch
             {
@@ -53,7 +53,7 @@ namespace Tabloid.Controllers
                 try
                 {
                     _postTagRepository.Add(postTag);
-                    return Ok();
+                    return Ok(_postTagRepository.Get(postTag.PostId));
                 }
                 catch
                 {
