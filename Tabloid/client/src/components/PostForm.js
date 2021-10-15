@@ -56,7 +56,7 @@ return(
                     <Input type="url" class="form-control" id="imageLocation" placeholder ="Image URL" value={post.imageLocation} onChange={handleInput} required/>
 
                     <label for="name">Publish Date</label>
-                    <Input type="datetime-local" class="form-control" id="publishDateTime" placeholder ="title" value={post.title} onChange={handleInput} required/>
+                    <Input type="datetime-local" class="form-control" id="publishDateTime" placeholder ="title" value={post.publishDateTime} onChange={handleInput} required/>
 
                     <label for="category">Category</label>
                     <Input type="select" name="select" id="categoryId" onChange={handleInput}>

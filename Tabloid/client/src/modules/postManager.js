@@ -1,3 +1,5 @@
+import firebase from "firebase/app";
+import "firebase/auth";
 import { getToken } from "./authManager";
 const _apiUrl = "/api/post" 
 
@@ -35,7 +37,7 @@ export const addPost = (post) =>
         fetch(_apiUrl, {
         method: "POST",
         headers: {
-            "Authorization": `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
         },
         body: JSON.stringify(post),

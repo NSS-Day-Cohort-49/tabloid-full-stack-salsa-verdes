@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 using Tabloid.Repositories;
 using Tabloid.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Tabloid.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PostController : ControllerBase
     {
         private readonly IPostRepository _postRepository;
@@ -129,25 +131,25 @@ namespace Tabloid.Controllers
 
 
 
-        private UserProfile GetCurrentUserProfileId()
+        private UserProfile GetCurrentUserProfile()
         {
-            var firebaseUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
         }
 
         [HttpPost]
         public IActionResult Post(Post post)
         {
-            post.UserProfileId = GetCurrentUserProfileId().Id;
-            try
-            {
+            post.UserProfileId = GetCurrentUserProfile().Id;
+            //try
+            //{
                 _postRepository.Add(post);
                 return CreatedAtAction("Get", new { id = post.Id }, post);
                     
-            }catch
-            {
-                return BadRequest();
-            }
+            //}catch
+            //{
+            //    return BadRequest();
+            //}
 
         }
     }

@@ -228,6 +228,7 @@ namespace Tabloid.Repositories
                 {
                     cmd.CommandText = @"INSERT INTO Post (Title, Content, ImageLocation, 
                                         CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId)
+                                        OUTPUT Inserted.Id
                                         VALUES (@title, @content, @imageLocation, SYSDateTime(), @publishDateTime,
                                         @isApproved, @categoryId, @userProfileId)";
 
