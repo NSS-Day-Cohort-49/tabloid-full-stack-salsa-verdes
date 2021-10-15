@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {Card ,CardBody, Col, Row, Button} from "reactstrap"
 
 
@@ -60,13 +60,14 @@ const Post = ({post}) => {
 
 
 
+const history = useHistory();
 
 const handleClickDeletePost = () => {
     return
 }
 
 const handleClickEditPost = () => {
-    return
+    history.push(`/post/edit/${post.id}`)
 }
 
     return (

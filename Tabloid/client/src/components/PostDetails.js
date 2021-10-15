@@ -1,7 +1,7 @@
 import React, {useEffect, useState, UseState} from "react";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import { useParams } from "react-router-dom";
-import {  getPostsId } from "../modules/postManager";
+import {  getPostById } from "../modules/postManager";
 import Post from "./Post";
 
 
@@ -12,7 +12,7 @@ export const PostDetails = () => {
     const date = new Date(post.publishDateTime).toDateString()
 
     useEffect(() => {
-        getPostsId(id)
+        getPostById(id)
         .then(setPost);
     }, [])
 

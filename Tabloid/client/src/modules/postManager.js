@@ -142,7 +142,7 @@ export const getPosts = () => {
     .then((res) => res.json())
     )};
 
-export const getPostsId = (id) => {
+export const getPostById = (id) => {
     return getToken()
     .then((token) => fetch(`${_apiUrl}/${id}`,{
         method: "GET",
@@ -161,7 +161,10 @@ export const getPostsId = (id) => {
 
 
 
-
+export const updatePost = (post) =>
+{
+    return
+}
 
 
 
