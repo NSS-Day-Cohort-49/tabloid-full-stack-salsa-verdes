@@ -13,7 +13,7 @@ namespace Tabloid.Repositories
     {
         public PostRepository(IConfiguration configuration) : base(configuration) { }
 
-        public List<Post> GetAll()
+        public List<Post> GetAll(int currentUserId)
         {
             using (var conn = Connection)
             {
@@ -63,6 +63,7 @@ namespace Tabloid.Repositories
                                 CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
                                 ImageLocation = DbUtils.GetString(reader, "ImageLocation")
                             },
+                            IsByCurrentUser = currentUserId == DbUtils.GetInt(reader, "UserProfileId") ? true : false 
                         });
 
                     }
@@ -73,7 +74,7 @@ namespace Tabloid.Repositories
             }
         }
 
-        public Post GetById(int id)
+        public Post GetById(int id, int currentUserId)
         {
             using (var conn = Connection)
             {
@@ -124,6 +125,7 @@ namespace Tabloid.Repositories
                                 CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
                                 ImageLocation = DbUtils.GetString(reader, "ImageLocation")
                             },
+                            IsByCurrentUser = currentUserId == DbUtils.GetInt(reader, "UserProfileId") ? true : false
 
                         };
                     }
@@ -134,9 +136,115 @@ namespace Tabloid.Repositories
             }
         }
 
-        public void Add()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public void Add(Post post)
         {
-            throw new NotImplementedException();
+            using(var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Post (Title, Content, ImageLocation, 
+                                        CreateDateTime, PublishDateTime, IsApproved, CategoryId, UserProfileId)
+                                        OUTPUT Inserted.Id
+                                        VALUES (@title, @content, @imageLocation, SYSDateTime(), @publishDateTime,
+                                        @isApproved, @categoryId, @userProfileId)";
+
+                    DbUtils.AddParameter(cmd, "@title", post.Title);
+                    DbUtils.AddParameter(cmd, "@content", post.Content);
+                    DbUtils.AddParameter(cmd, "@imageLocation", post.ImageLocation);
+                    DbUtils.AddParameter(cmd, "@publishDateTime", post.PublishDateTime);
+                    DbUtils.AddParameter(cmd, "@isApproved", 1);
+                    DbUtils.AddParameter(cmd, "@categoryId", post.CategoryId);
+                    DbUtils.AddParameter(cmd, "@userProfileId", post.UserProfileId);
+
+                    post.Id = (int)cmd.ExecuteScalar();
+                }
+            }
         }
 
         public void Delete(int id)
@@ -156,7 +264,30 @@ namespace Tabloid.Repositories
 
         public void Update(Post post)
         {
-            throw new NotImplementedException();
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE Post SET 
+                                        Title = @title,
+                                        Content = @content,
+                                        ImageLocation = @imageLocation,
+                                        PublishDateTime = @publishDateTime,
+                                        CategoryId = @categoryId
+                                        WHERE Id = @id";
+
+                    DbUtils.AddParameter(cmd, "@title", post.Title);
+                    DbUtils.AddParameter(cmd, "@content", post.Content);
+                    DbUtils.AddParameter(cmd, "@imageLocation", post.ImageLocation);
+                    DbUtils.AddParameter(cmd, "@publishDateTime", post.PublishDateTime);
+                    DbUtils.AddParameter(cmd, "@categoryId", post.CategoryId);
+                    DbUtils.AddParameter(cmd, "@userProfileId", post.UserProfileId);
+                    DbUtils.AddParameter(cmd, "@id", post.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

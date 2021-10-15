@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { getPosts } from "../modules/postManager"
-import { Post } from "./Post";
+import {Post} from "./Post";
+import { Col, Row } from "reactstrap"
+import { useHistory } from "react-router-dom";
 
 export const PostList = () => {
+
+const history = useHistory();
 
 const [posts, setPosts] = useState([])
 
@@ -14,10 +18,26 @@ useEffect(() => {
     getAllPosts()
 },[]);
 
+const handleClickPostForm = () => {
+    history.push("/post/create")
+}
+
 return (
     <div className="container">
-        <h1>Posts</h1>
-        <div className="row justify-content-center">
+
+            <Row>
+                <Col xs={{size: 2, offset:1}}>
+
+                    <h1>Posts</h1>
+
+                </Col>
+                <Col xs={{size: 2, offset:0.5}}>
+                    <button class = "btn-primary" name="postForm" onClick = {handleClickPostForm}>Create a Post </button>
+                </Col>
+
+            </Row>
+
+        <div className="row">
             <p>
             {posts.map((post) => (
                 <Post post = {post} key = {post.Id}  setPosts={setPosts} getPosts={getPosts}/>

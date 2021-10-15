@@ -19,7 +19,6 @@ export const deleteTag = (tag) => {
     return fetch(`${_apiUrl}/${tag.id}`, {
         method: "DELETE"
     })
-    .then(getTags());
 }
 
 export const updateTag = (tag) => {
