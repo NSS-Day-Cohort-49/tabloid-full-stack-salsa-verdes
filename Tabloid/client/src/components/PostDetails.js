@@ -23,7 +23,15 @@ export const PostDetails = () => {
         .then((postTags) => setPostTags(postTags)))
     }, [])
 
-
+const handleCheck = (event) => {
+    if (event.checked)
+    {
+        console.log("checked")
+    }
+    else {
+        console.log("not checked")
+    }
+}
 
     return (
         <div className="container">
@@ -31,7 +39,7 @@ export const PostDetails = () => {
                 {tags.map(tag =>
                 <>
                 <label>{tag.name}</label>
-                <input name={tag.name} type="checkbox" checked={postTags.some(postTag => postTag.tagId === tag.id) ? "checked" : ""}/>
+                <input name={tag.name} id={tag.id} type="checkbox" defaultChecked={postTags.some(postTag => postTag.tagId === tag.id) ? "checked" : ""} onClick={event=> handleCheck}/>
                 </>)}
             </div>
                 
