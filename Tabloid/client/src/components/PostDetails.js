@@ -60,7 +60,7 @@ const handleClickShowTags = () => {
                         {post.isByCurrentUser?
                         <button type="submit" class="btn btn-primary mx-3" onClick={event => {
                         handleClickShowTags()
-                    }}>Manage Tags</button> : null}
+                    }}>{showTags? "Close" : "Manage Tags"}</button> : null}
                         </Row>
                         <div>Tags : {postTags.map(pt => `${pt.tagName} `)}</div>
                         <div>{post.category?.name}</div>
