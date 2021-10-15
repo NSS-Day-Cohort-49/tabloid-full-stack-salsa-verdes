@@ -8,5 +8,8 @@ export const addPostTag = (postTag) => {
         },
         body: JSON.stringify(postTag),
     })
-    // .then(getTags());
 }
+
+export const getPostTags = (postId) => {
+    return fetch(`${_apiUrl}/${postId}`)
+    .then((res) => res.json()) }
