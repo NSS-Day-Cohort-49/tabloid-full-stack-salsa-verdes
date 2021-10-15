@@ -6,12 +6,16 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Tabloid.Repositories;
+using Tabloid.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Tabloid.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PostController : ControllerBase
     {
         private readonly IPostRepository _postRepository;
@@ -25,7 +29,8 @@ namespace Tabloid.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var posts = _postRepository.GetAll();
+            var currentUserId = GetCurrentUserProfile().Id;
+            var posts = _postRepository.GetAll(currentUserId);
 
             return Ok(posts);
         }
@@ -33,7 +38,9 @@ namespace Tabloid.Controllers
         [HttpGet("{id}")]
         public IActionResult get(int id)
         {
-            var post = _postRepository.GetById(id);
+            var currentUserId = GetCurrentUserProfile().Id;
+
+            var post = _postRepository.GetById(id, currentUserId);
             if (post == null)
             {
                 return NotFound();
@@ -44,15 +51,36 @@ namespace Tabloid.Controllers
         [HttpGet("myPosts")]
         public IActionResult GetLoggedInUserPosts()
         {
-            var loggedInUser = GetCurrentUserProfileId();
-            var fireBaseUser = _userProfileRepository.GetByFirebaseUserId(loggedInUser);
-            var posts = _postRepository.GetAllPostsForUser(fireBaseUser.Id);
+            var loggedInUser = GetCurrentUserProfile();
+            // var fireBaseUser = _userProfileRepository.GetByFirebaseUserId(loggedInUser);
+            var posts = _postRepository.GetAllPostsForUser(loggedInUser.Id);
             return Ok(posts);
         }
-
-        private string GetCurrentUserProfileId()
+        private UserProfile GetCurrentUserProfile()
         {
-            return User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
+        }
+
+        // private string GetCurrentUserProfileId()
+        // {
+        //     return User.FindFirstValue(ClaimTypes.NameIdentifier);
+        // }
+
+        [HttpPost]
+        public IActionResult Post(Post post)
+        {
+            post.UserProfileId = GetCurrentUserProfile().Id;
+            try
+            {
+                _postRepository.Add(post);
+                return CreatedAtAction("Get", new { id = post.Id }, post);
+            }
+            catch
+            {
+                return BadRequest();
+
+            }
         }
 
         [HttpDelete("{id}")]
@@ -61,5 +89,21 @@ namespace Tabloid.Controllers
             _postRepository.Delete(id);
             return NoContent();
         }
+        [HttpPut]
+        public IActionResult Update(Post post)
+        {
+            try
+            {
+                _postRepository.Update(post);
+
+                return Ok(post);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
     }
 }
+
+
