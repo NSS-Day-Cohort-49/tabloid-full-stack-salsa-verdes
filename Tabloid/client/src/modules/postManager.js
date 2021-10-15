@@ -3,15 +3,156 @@ import "firebase/auth";
 import { getToken } from "./authManager";
 const _apiUrl = "/api/post" 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export const getPosts = () => {
-    return fetch(_apiUrl)
+    return getToken()
+    .then((token) =>
+    fetch(_apiUrl, {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        }
+    })
     .then((res) => res.json())
-};
+    )};
 
 export const getPostsId = (id) => {
-    return fetch(`${_apiUrl}/${id}`)
+    return getToken()
+    .then((token) => fetch(`${_apiUrl}/${id}`,{
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        }
+    })
     .then((res) => res.json())
-};
+    )};
 
 
 
