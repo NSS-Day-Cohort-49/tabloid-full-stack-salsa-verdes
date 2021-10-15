@@ -1,19 +1,21 @@
 import React, {useEffect, useState, UseState} from "react";
-import { ListGroup, ListGroupItem } from "reactstrap";
 import { useParams } from "react-router-dom";
 import {  getPostById } from "../modules/postManager";
-import Post from "./Post";
+import { getTags } from "../modules/tagManager";
 
 
 export const PostDetails = () => {
     const [post, setPost ] = useState({});
+    const [ tags, setTags ] = useState([]);
     const { id } = useParams();
 
     const date = new Date(post.publishDateTime).toDateString()
 
     useEffect(() => {
         getPostById(id)
-        .then(setPost);
+        .then(setPost)
+        .then(getTags()
+        .then((tags) => setTags(tags)))
     }, [])
 
     return (
