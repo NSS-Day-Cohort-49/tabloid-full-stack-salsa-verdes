@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getPosts } from "../modules/postManager"
-import Post from "./Post";
+import {Post} from "./Post";
 import { Col, Row } from "reactstrap"
 import { useHistory } from "react-router-dom";
 

@@ -3,132 +3,6 @@ import "firebase/auth";
 import { getToken } from "./authManager";
 const _apiUrl = "/api/post" 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export const getPosts = () => {
     return getToken()
     .then((token) =>
@@ -154,13 +28,6 @@ export const getPostById = (id) => {
     .then((res) => res.json())
     )};
 
-
-
-
-
-
-
-
 export const updatePost = (post) =>
 {
     return getToken().then((token) =>
@@ -174,14 +41,15 @@ export const updatePost = (post) =>
 }))
 }
 
-
-
-
-
-
-
-
-
+export const deletePost = (post) => {
+    return getToken()
+    .then((token) => fetch(`${_apiUrl}/${post.id}`, {
+        method: "DELETE",
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    })
+)}
 
 export const addPost = (post) => 
 {
@@ -193,8 +61,7 @@ export const addPost = (post) =>
             "Content-Type": "application/json",
         },
         body: JSON.stringify(post),
-    }))
-    
+    }))  
 }
 
 
@@ -203,32 +70,3 @@ export const addPost = (post) =>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-export const deletePost = (post) => {
-    return fetch(`${_apiUrl}/${post.id}`, {
-        method: "DELETE"
-    })
-}
