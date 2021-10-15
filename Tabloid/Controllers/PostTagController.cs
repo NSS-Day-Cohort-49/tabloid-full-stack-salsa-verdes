@@ -22,6 +22,19 @@ namespace Tabloid.Controllers
         }
 
         // POST api/<ValuesController>
+        [HttpGet("{postId}")]
+        public IActionResult Get(int postId)
+        {
+            try
+            {
+                var postTags = _postTagRepository.Get(postId);
+                return Ok(postTags);
+            }
+            catch
+            {
+                return NoContent();
+            }
+         }
         [HttpPost]
         public IActionResult Post(PostTag postTag)
         {

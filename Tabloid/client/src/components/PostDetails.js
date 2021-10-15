@@ -7,6 +7,7 @@ import { getTags } from "../modules/tagManager";
 export const PostDetails = () => {
     const [post, setPost ] = useState({});
     const [ tags, setTags ] = useState([]);
+    const [ showTags, setShowTags ] = useState(false);
     const { id } = useParams();
 
     const date = new Date(post.publishDateTime).toDateString()
@@ -18,12 +19,16 @@ export const PostDetails = () => {
         .then((tags) => setTags(tags)))
     }, [])
 
+
+
     return (
         <div className="container">
+                <label>Tags</label>
+                <input name="tags" type="checkbox">
+                {tags.map(tag => <p>{tag.name}</p>)}
             <div className="row justify-content-center">
                 <div className="col-sm-12 col-lg-6">
-                    {/* <Post post={post} /> */}
-
+                    
                         <img src={post.imageLocation} /> 
                         <h2>{post.title}</h2>
                         <div>{post.category?.name}</div>

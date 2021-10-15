@@ -9,6 +9,35 @@ namespace Tabloid.Repositories
     {
         public PostTagRepository(IConfiguration configuration) : base(configuration) { }
 
+        public List<PostTag>Get(int postId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT * FROM PostTag
+                                        WHERE PostId = @postId";
+
+                    DbUtils.AddParameter(cmd, "@postId", postId);
+
+                    List<PostTag> postTags = new List<PostTag>();
+
+                    using(var reader = cmd.ExecuteReader())
+                    {
+                    while(reader.Read())
+                        {
+                            postTags.Add(new PostTag
+                            {
+                                PostId = postId,
+                                TagId = DbUtils.GetInt(reader, "TagId")
+                            });
+                        }
+                    }
+                    return postTags;
+                }
+            }
+        }
         public void Add(PostTag postTag)
         {
             using (var conn = Connection)
