@@ -1,5 +1,6 @@
 import React, {useEffect, useState, UseState} from "react";
 import { useParams } from "react-router-dom";
+import { useHistory } from "react-router";
 import {  getPostById } from "../modules/postManager";
 import { Link } from "react-router-dom";
 import { getPostTags, updatePostTags } from "../modules/postTagManager"
@@ -15,6 +16,8 @@ export const PostDetails = () => {
     const { id } = useParams();
 
     const date = new Date(post.publishDateTime).toDateString()
+
+    const history = useHistory();
 
     useEffect(() => {
         getPostById(id)
@@ -38,6 +41,10 @@ const handleClickShowTags = () => {
         setShowTags(false)
     }
     else (setShowTags(true))
+}
+
+const handleClickCommentForm = () => {
+    history.push("/comment/add")
 }
     return (
         <div className="container">
@@ -77,7 +84,10 @@ const handleClickShowTags = () => {
                     <button class = "btn-primary" type="button">
                         My Comments
                     </button>
+
                 </Link>     
+                    {/* Not yet working */}
+                    {/* <button className="btn-primary" onClick={handleClickCommentForm} color="primary">Add a Comment</button> */}
                 </div>
             </div>
     )
