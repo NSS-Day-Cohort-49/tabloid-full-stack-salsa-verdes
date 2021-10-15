@@ -7,7 +7,7 @@ import PostList from "./PostList";
 import MyPostList from "./MyPostList";
 import { CategoryList } from "./CategoryList";
 import CategoryForm from "./CategoryForm";
-import {PostList} from "./PostList"
+// import {PostList} from "./PostList"
 import { TagList } from "./TagList";
 import TagForm from "./TagForm";
 import PostForm from "./PostForm";
