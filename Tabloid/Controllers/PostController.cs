@@ -30,7 +30,7 @@ namespace Tabloid.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult get(int id)
+        public IActionResult Get(int id)
         {
             
             var post = _postRepository.GetById(id);

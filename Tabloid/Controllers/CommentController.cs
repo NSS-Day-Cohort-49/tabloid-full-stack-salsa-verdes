@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tabloid.Models;
 using Tabloid.Repositories;
 
 namespace Tabloid.Controllers
@@ -39,5 +40,21 @@ namespace Tabloid.Controllers
             return Ok(comments);
         }
 
+
+        [HttpPost]
+        public IActionResult Post(Comment comment)
+        {
+            try
+            {
+                _commentRepository.Add(comment);
+
+                return CreatedAtAction("Get", new { id = comment.Id }, comment);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+        }
     }
 }

@@ -10,5 +10,6 @@ namespace Tabloid.Repositories
     {
         List<Comment> GetAll();
         List<Comment> GetCommentsByPostId(int id);
+        void Add(Comment comment); 
     }
 }
