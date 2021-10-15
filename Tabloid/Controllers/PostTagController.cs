@@ -36,17 +36,29 @@ namespace Tabloid.Controllers
             }
          }
         [HttpPost]
-        public IActionResult Post(PostTag postTag)
+        public IActionResult Update(PostTag postTag)
         {
+            var postTags = _postTagRepository.Get(postTag.PostId);
+            if (postTags.Any(tag => tag.TagId == postTag.TagId))
             try
             {
-                _postTagRepository.Add(postTag);
+                _postTagRepository.Delete(postTag);
                 return Ok(postTag);
             }
             catch
             {
                 return BadRequest();
             }
+            else
+                try
+                {
+                    _postTagRepository.Add(postTag);
+                    return Ok();
+                }
+                catch
+                {
+                    return BadRequest();
+                }
         }
 
         // DELETE api/<ValuesController>/5

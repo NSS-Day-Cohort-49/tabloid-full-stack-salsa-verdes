@@ -57,16 +57,17 @@ namespace Tabloid.Repositories
             }
         }
 
-        public void Delete(int id)
+        public void Delete(PostTag postTag)
         {
             using (var conn = Connection)
             {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"DELETE FROM TAG
-                                        WHERE Id = @id";
-                    DbUtils.AddParameter(cmd, "id", id);
+                    cmd.CommandText = @"DELETE FROM PostTag
+                                        WHERE PostId = @postId AND TagId = @tagId";
+                    DbUtils.AddParameter(cmd, "@postId", postTag.PostId);
+                    DbUtils.AddParameter(cmd, "@tagId", postTag.TagId);
 
                     cmd.ExecuteNonQuery();
                 }
