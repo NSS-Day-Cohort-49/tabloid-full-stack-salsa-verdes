@@ -72,7 +72,7 @@ return(
                     <Input type="datetime-local" class="form-control" id="publishDateTime" placeholder ="title" value={post.publishDateTime} onChange={handleInput} required/>
 
                     <label for="category">Category</label>
-                    <Input type="select" name="select" id="categoryId" onChange={handleInput}>
+                    <Input type="select" name="select" value={post.categoryId} id="categoryId" onChange={handleInput}>
                         <option value={null}>Select a Category</option>
                     {categories.map(c => {
                         return <option value={c.id}>{c.name}</option>
