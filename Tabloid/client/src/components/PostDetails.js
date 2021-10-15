@@ -29,9 +29,20 @@ const handleCheck = (tagId) => {
     .then(getPostTags(id))
     .then(pt => setPostTags(pt))
 }
+
+const handleClickShowTags = () => {
+    if (showTags)
+    {
+        setShowTags(false)
+    }
+    else (setShowTags(true))
+}
+
 console.log(postTags)
     return (
         <div className="container">
+            {showTags?
+            <>
             <div class="tagsModal">
                 {tags.map(tag =>
                 <>
@@ -39,11 +50,16 @@ console.log(postTags)
                 <input name={tag.name} id={tag.id} type="checkbox" checked={postTags.some(postTag => postTag.tagId === tag.id) ? "checked" : false} onChange={(event) => handleCheck(tag.id)}/>
                 </>)}
             </div>
-                
+            </>
+            :
+            null}              
             <div className="row justify-content-center">
                 <div className="col-sm-12 col-lg-6">
                         <img src={post.imageLocation} /> 
                         <h2>{post.title}</h2>
+                        <button type="submit" class="btn btn-primary mr-3" onClick={event => {
+                        handleClickShowTags()
+                    }}>Manage Tags</button>
                         <div>Tags : {postTags.map(pt => `${pt.tagName} `)}</div>
                         <div>{post.category?.name}</div>
                         <div>{post.userProfile?.displayName} {date}</div><br></br>
