@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import {  getPostById } from "../modules/postManager";
 import { getTags } from "../modules/tagManager";
 import { getPostTags, updatePostTags } from "../modules/postTagManager"
+import { Row } from "reactstrap";
 
 
 export const PostDetails = () => {
@@ -56,10 +57,12 @@ console.log(postTags)
             <div className="row justify-content-center">
                 <div className="col-sm-12 col-lg-6">
                         <img src={post.imageLocation} /> 
+                        <Row>
                         <h2>{post.title}</h2>
-                        <button type="submit" class="btn btn-primary mr-3" onClick={event => {
+                        <button type="submit" class="btn btn-primary mx-3" onClick={event => {
                         handleClickShowTags()
                     }}>Manage Tags</button>
+                        </Row>
                         <div>Tags : {postTags.map(pt => `${pt.tagName} `)}</div>
                         <div>{post.category?.name}</div>
                         <div>{post.userProfile?.displayName} {date}</div><br></br>
