@@ -63,7 +63,7 @@ return(
                     <Input type="name" class="form-control" id="title" placeholder ="Title" value={post.title} onChange={handleInput} required/>
 
                     <label for="content">Content</label>
-                    <Input type="textarea" class="form-control" id="content" placeholder ="Content" value={post.content} onChange={handleInput} required/>
+                    <Input type="textarea-lg" class="form-control" id="content" placeholder ="Content" value={post.content} onChange={handleInput} required/>
 
                     <label for="imageLocation">Image URL</label>
                     <Input type="url" class="form-control" id="imageLocation" placeholder ="Image URL" value={post.imageLocation} onChange={handleInput} required/>
